@@ -1,12 +1,12 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
 
 @layer base {
   :root {
     --font-ubuntu: "Ubuntu", sans-serif;
     --font-jaini: "Jaini", system-ui;
+    --font-ubuntuC:"Ubuntu Condensed", sans-serif;
+    --font-teachers:"Teachers", sans-serif;
   }
 
   .ubuntu {
@@ -15,22 +15,35 @@
   .jaini {
     font-family: var(--font-jaini);
   }
+
+  .ubuntuC{
+    font-family: var(--font-ubuntuC);
+  }
+  .teacher{
+    font-family:  var(--font-teachers);
+  }
+}
+/* @font-face {
+  font-family: "Jaini";
+  src: url("/fonts/Jaini-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
 }
 
-@layer utilities {
-  .text-middle {
-    font-size: 20px;
-    /* line-height: 1.2; Adjust as needed */
-  }
-  .text-box {
-    font-size: 25px;
-  }
-  .text-topic {
-    font-size: 40px;
-  }
+@font-face {
+  font-family: "Ubuntu";
+  src: url("/fonts/Ubuntu-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+} */
 
-  .text-large {
-    font-size: 90px;
+@layer utilities {
+  .text-20px {
+    font-size: 20px;
+    line-height: 1.2; /* Adjust as needed */
+  }
+  .text-40px {
+    font-size: 40px;
   }
 
   .bg-custom-blue1 {
@@ -43,79 +56,59 @@
     border-color: #1d425e;
   }
   .topic-color {
-    color: #02182e;
+    color: #375286;
   }
   .bg-custom-blue2 {
-    background-color: #02182e;
+    background-color: #375286;
   }
   .text-custom-blue2 {
-    color: #02182e;
+    color: #375286;
   }
   .border-custom-blue2 {
-    border-color: #02182e;
+    border-color: #375286;
   }
   .bg-custom-blue3 {
-    background-color: #376586;
+    background-color: #488DB4;
   }
   .text-custom-blue3 {
-    color: #376586;
+    color: #488DB4;
   }
   .border-custom-blue3 {
-    border-color: #376586;
+    border-color: #488DB4;
   }
+
+
   .bg-custom-blue4 {
-    background-color: #ccdee4;
+    background-color: #85C4E4;
   }
   .text-custom-blue4 {
-    color: #ccdee4;
+    color: #85C4E4;
   }
   .border-custom-blue4 {
+    border-color: #85C4E4;
+  }
+
+
+  .bg-custom-blue5 {
+    background-color: #CCDEE4;
+  }
+  .text-custom-blue5 {
+    color: #ccdee4;
+  }
+  .border-custom-blue5 {
     border-color: #ccdee4;
   }
 
-  .bg-color {
-    background-color: #a3a6a6;
+
+  .bg-main {
+    background-color: #F1F1F1;
   }
-}
-
-:root {
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
-
-.dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
-
-@theme inline {
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+  .text-main {
+    color: #F1F1F1;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+  .border-main {
+    border-color: #F1F1F1;
+}
+
+
 }

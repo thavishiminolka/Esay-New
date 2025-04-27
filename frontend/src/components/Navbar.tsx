@@ -77,7 +77,7 @@ function Navbar() {
               {examsDropdownOpen && (
                 <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-1 z-50">
                   <Link
-                    to="/exams/korean"
+                    to="/dashboard"
                     className="block px-4 py-2 hover:bg-gray-100 ubuntu"
                     onClick={closeAllDropdowns}
                   >
