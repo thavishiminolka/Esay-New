@@ -33,9 +33,7 @@ const Pricing: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/price-plans/public"
-      );
+      const response = await fetch("http://localhost:5000/api/price-plans");
       if (!response.ok) {
         throw new Error(`Failed to fetch price plans: ${response.statusText}`);
       }
