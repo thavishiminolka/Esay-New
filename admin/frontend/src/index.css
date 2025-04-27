@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+
+@layer base {
+  :root {
+    --font-ubuntu: "Ubuntu", sans-serif;
+    --font-jaini: "Jaini", system-ui;
+    --font-ubuntuC:"Ubuntu Condensed", sans-serif;
+    --font-teachers:"Teachers", sans-serif;
+  }
+
+  .ubuntu {
+    font-family: var(--font-ubuntu);
+  }
+  .jaini {
+    font-family: var(--font-jaini);
+  }
+
+  .ubuntuC{
+    font-family: var(--font-ubuntuC);
+  }
+  .teacher{
+    font-family:  var(--font-teachers);
+  }
+}
+/* @font-face {
+  font-family: "Jaini";
+  src: url("/fonts/Jaini-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("/fonts/Ubuntu-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+} */
+
+@layer utilities {
+  .text-20px {
+    font-size: 20px;
+    line-height: 1.2; /* Adjust as needed */
+  }
+  .text-40px {
+    font-size: 40px;
+  }
+
+  .bg-custom-blue1 {
+    background-color: #1d425e;
+  }
+  .text-custom-blue1 {
+    color: #1d425e;
+  }
+  .border-custom-blue1 {
+    border-color: #1d425e;
+  }
+  .topic-color {
+    color: #375286;
+  }
+  .bg-custom-blue2 {
+    background-color: #375286;
+  }
+  .text-custom-blue2 {
+    color: #375286;
+  }
+  .border-custom-blue2 {
+    border-color: #375286;
+  }
+  .bg-custom-blue3 {
+    background-color: #488DB4;
+  }
+  .text-custom-blue3 {
+    color: #488DB4;
+  }
+  .border-custom-blue3 {
+    border-color: #488DB4;
+  }
+
+
+  .bg-custom-blue4 {
+    background-color: #85C4E4;
+  }
+  .text-custom-blue4 {
+    color: #85C4E4;
+  }
+  .border-custom-blue4 {
+    border-color: #85C4E4;
+  }
+
+
+  .bg-custom-blue5 {
+    background-color: #CCDEE4;
+  }
+  .text-custom-blue5 {
+    color: #ccdee4;
+  }
+  .border-custom-blue5 {
+    border-color: #ccdee4;
+  }
+
+
+  .bg-main {
+    background-color: #F1F1F1;
+  }
+  .text-main {
+    color: #F1F1F1;
+  }
+  .border-main {
+    border-color: #F1F1F1;
+}
+
+
+}
