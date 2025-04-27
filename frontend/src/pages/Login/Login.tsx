@@ -5,7 +5,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import axios, { AxiosError } from "axios";
-import { toast } from "react-toastify";
 
 // Define types for API response
 interface LoginResponse {
