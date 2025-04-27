@@ -1,8 +1,8 @@
 
 import { AppSidebar } from "./components/sidebar"
 import { Button } from "../../components/ui/button"
-import { Card, CardContent } from "../../components/ui/card"
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "../../components/ui/sidebar"
+import { Card, CardContent } from "@/components/ui/card"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom";
 export default function Dashboard() {
   const user = {
