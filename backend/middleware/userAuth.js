@@ -6,7 +6,7 @@ const userAuth = async (req, res, next) => {
     const { token } = req.cookies;
     console.log("userAuth: Token received:", token ? "Present" : "Missing");
     if (!token) {
-        return res.status(401).json({ success: false, message: 'Not authorized, please login again' });
+        return res.status(401).json({ success: false, message: 'Not authorized, please login agains' });
     }
     try {
         if (!process.env.JWT_SECRET) {
