@@ -1,22 +1,100 @@
-import { useState } from "react";
-
-import { Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
-
-import { Input } from "../../components/ui/input";
+import React from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";  
+import { Input } from "../../components/ui/input";  
 import { Button } from "../../components/ui/button";
+import axios, { AxiosError } from "axios";
 
-function SignupPage() {
-  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+// Define interface for API response
+interface SignupResponse {
+  success: boolean;
+  message?: string;
+}
+
+// Define interface for API error response
+interface ErrorResponse {
+  message: string;
+}
+
+function SignupPage():  React.ReactElement  {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const togglePasswordVisibility = (): void => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    setError("");
+    
+    // Basic validation
+    if (!firstName || !lastName || !phone || !email || !password) {
+      setError("All fields are required");
+      return;
+    }
+    
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+    
+    if (!/^\d+$/.test(phone)) {
+      setError("Phone number should contain only digits");
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const response = await axios.post<SignupResponse>(
+        `${apiUrl}/api/auth/register`,
+        {
+          name: firstName,
+          lName: lastName,
+          phone: Number(phone),
+          email,
+          password
+        },
+        {
+          withCredentials: true // To allow cookies to be set
+        }
+      );
+      
+      if (response.data.success) {
+        // Redirect to login on successful signup
+        navigate("/login");
+      } else {
+        setError(response.data.message || "Signup failed. Please try again.");
+      }
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
+      if (error.response) {
+        setError(error.response.data.message || "An error occurred during signup");
+      } else if (error.request) {
+        setError("Unable to connect to the server. Please check your internet connection.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center">
-        <div className="absolute inset-0 "></div>
+        <div className="absolute inset-0"></div>
       </div>
 
       {/* Content container */}
@@ -31,7 +109,7 @@ function SignupPage() {
             />
           </div>
 
-          {/* Right side - Form */}
+          {/* Right side - Form */} 
           <div
             className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center 
                        bg-gradient-to-b from-pink-200/80 to-lime-600/20 
@@ -45,17 +123,24 @@ function SignupPage() {
               />
             </div>
 
-            <h1 className="text-3xl  text-custom-blue2 mb-8 ubuntu">
+            <h1 className="text-3xl text-custom-blue2 mb-6 ubuntu">
               Create Your Account
             </h1>
+            
+            {error && (
+              <div className="text-red-500 text-center mb-4">{error}</div>
+            )}
 
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Input
                     type="text"
                     placeholder="First Name"
                     className="w-full p-4 bg-gray-100 bg-opacity-70"
+                    value={firstName}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+                    required
                   />
                 </div>
                 <div>
@@ -63,6 +148,9 @@ function SignupPage() {
                     type="text"
                     placeholder="Last Name"
                     className="w-full p-4 bg-gray-100 bg-opacity-70"
+                    value={lastName}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -71,12 +159,18 @@ function SignupPage() {
                 type="tel"
                 placeholder="Phone Number"
                 className="w-full p-4 bg-gray-100 bg-opacity-70"
+                value={phone}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+                required
               />
 
               <Input
                 type="email"
                 placeholder="Email"
                 className="w-full p-4 bg-gray-100 bg-opacity-70"
+                value={email}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                required
               />
 
               <div className="relative">
@@ -84,6 +178,10 @@ function SignupPage() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className="w-full p-4 bg-gray-100 bg-opacity-70"
+                  value={password}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
                 />
                 <button
                   type="button"
@@ -95,8 +193,12 @@ function SignupPage() {
                 </button>
               </div>
 
-              <Button className="w-full p-6 bg-custom-blue2 hover:bg-slate-800 text-white font-semibold text-lg">
-                SIGN UP
+              <Button 
+                type="submit"
+                className="w-full p-6 bg-custom-blue2 hover:bg-slate-800 text-white font-semibold text-lg"
+                disabled={loading}
+              >
+                {loading ? "SIGNING UP..." : "SIGN UP"}
               </Button>
 
               <div className="text-center text-gray-600">
@@ -114,7 +216,7 @@ function SignupPage() {
                 <br />
                 making the most of your learning journey!
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

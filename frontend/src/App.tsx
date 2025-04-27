@@ -14,6 +14,9 @@ import EditProfilePage from "./pages/Student/editprofile";
 import MyResultsPage from "./pages/Student/resultview";
 import NotificationsPage from "./pages/Student/notification";
 import ExamPage from "./pages/Student/ExamPage";
+import EmailVerify from "./Auth/EmailVerify";
+import ResetPassword from "./Auth/ResetPassword";
+import UserList from "./Auth/userActivation";
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +24,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/email-verify"element={<EmailVerify/>}/>
+        <Route path="/reset-password" element={<ResetPassword/>} />
+        <Route path="/userActivation" element={<UserList/>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/dashboard" element={<Dashboard/>} />
