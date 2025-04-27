@@ -234,7 +234,7 @@ export default function AddPricePlan() {
         setPricePlans([newPlan, ...pricePlans]);
       }
 
-      alert(`Price plan Rs.{isEditing ? "updated" : "created"} successfully!`);
+      alert(`Price plan add successfully!`);
       resetForm();
       navigate("/viewPricePlans");
     } catch (err) {
