@@ -106,14 +106,15 @@ const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
 const fs = require("fs");
-const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/userRoutes.js");
+const adminRoutes = require("./routes/admin");
 require("dotenv").config();
-
 const authRouter = require("./routes/authRoutes");
+
 require("./cron");
 const connectDB = require("./config/mongodb");
-
 const cookieParser = require("cookie-parser");
+
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -152,8 +153,9 @@ app.use(
 // Routes
 app.use("/api/exams", examRoutes);
 app.use("/api/price-plans", pricePlanRoutes); // Added
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/auth", authRouter);
+app.use("/api/admin", adminRoutes);
 
 // Custom error handler
 app.use((err, req, res, next) => {

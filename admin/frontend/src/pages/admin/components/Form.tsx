@@ -14,7 +14,7 @@ const Form: React.FC<FormProps> = ({ type }) => {
     setLoading(true);
 
     try {
-      const endpoint = type === 'login' ? '/api/user/login' : '/api/user/signup';
+      const endpoint = type === 'login' ? '/api/admin/login' : '/api/admin/signup';
       await axios.post(`http://localhost:5000${endpoint}`, { email, password });
 
       if (type === 'login') {
