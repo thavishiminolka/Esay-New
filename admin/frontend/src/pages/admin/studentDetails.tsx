@@ -1,32 +1,66 @@
+import { useState, useEffect } from "react";
 import { AdminSidebar } from "./components/adminsidebar";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "../../components/ui/sidebar";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-const student = {
-  id: "000023",
-  firstName: "John",
-  lastName: "Doe",
-  contactNumber: "0713452768",
-  email: "johndoe2gmail.com",
-  address: "No.01, Main Road, Gampaha",
-  results: Array(9).fill({
-    paperNumber: "0001",
-    paperName: "Korean listening test",
-    marks: 87,
-  }),
-};
+// Define interfaces
+interface Result {
+  paperNumber: string;
+  paperName: string;
+  marks: number;
+}
+
+interface User {
+  _id: string;
+  name: string;
+  lName: string;
+  phone: string;
+  email: string;
+  isActive: boolean;
+  results?: Result[];
+}
 
 export default function StudentDetails() {
-  const [isActive, setIsActive] = useState(true); // Default to active
+  const { id } = useParams<{ id: string }>();
+  const [student, setStudent] = useState<User | null>(null);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const toggleStatus = () => {
-    setIsActive(!isActive);
-    // Here you would typically make an API call to update the status in your database
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await axios.get<User>(
+          `http://localhost:5000/api/users/${id}`
+        );
+        setStudent(response.data);
+        setIsActive(response.data.isActive);
+      } catch (error: any) {
+        setError("Failed to load student details");
+        console.error("Error fetching student:", error);
+      }
+    };
+    fetchStudent();
+  }, [id]);
+
+  const toggleStatus = async () => {
+    try {
+      const response = await axios.put<User>(
+        `http://localhost:5000/api/users/${id}/status`
+      );
+      setIsActive(response.data.isActive);
+    } catch (error: any) {
+      setError("Failed to update status");
+      console.error("Error updating status:", error);
+    }
   };
+
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!student) return <div>Loading...</div>;
 
   return (
     <SidebarProvider>
@@ -49,7 +83,7 @@ export default function StudentDetails() {
             <div className="flex flex-col items-center mb-6">
               <div className="h-32 w-32 rounded-full bg-gray-300 mb-4"></div>
               <h2 className="text-xl font-semibold">
-                Student Id: {student.id}
+                Student Id: {student._id}
               </h2>
               <div className="mt-4">
                 <button
@@ -80,21 +114,20 @@ export default function StudentDetails() {
                 <div>
                   <p className="text-lg">
                     <span className="font-semibold">First Name:</span>{" "}
-                    {student.firstName}
+                    {student.name}
                   </p>
                   <p className="text-lg mt-2">
                     <span className="font-semibold">Contact Number:</span>{" "}
-                    {student.contactNumber}
+                    {student.phone}
                   </p>
                   <p className="text-lg mt-2">
-                    <span className="font-semibold">Address:</span>{" "}
-                    {student.address}
+                    <span className="font-semibold">Address:</span> N/A
                   </p>
                 </div>
                 <div>
                   <p className="text-lg">
                     <span className="font-semibold">Last Name:</span>{" "}
-                    {student.lastName}
+                    {student.lName}
                   </p>
                   <p className="text-lg mt-2">
                     <span className="font-semibold">Email:</span>{" "}
@@ -114,17 +147,20 @@ export default function StudentDetails() {
                   <div>Paper Name</div>
                   <div>Marks</div>
                 </div>
-
-                {student.results.map((result, index) => (
-                  <div
-                    key={index}
-                    className="grid grid-cols-3 gap-4 bg-[#d6e6f0] rounded-md px-4 py-3 mb-2"
-                  >
-                    <div>{result.paperNumber}</div>
-                    <div>{result.paperName}</div>
-                    <div>{result.marks}</div>
-                  </div>
-                ))}
+                {student.results && student.results.length > 0 ? (
+                  student.results.map((result, index) => (
+                    <div
+                      key={index}
+                      className="grid grid-cols-3 gap-4 bg-[#d6e6f0] rounded-md px-4 py-3 mb-2"
+                    >
+                      <div>{result.paperNumber}</div>
+                      <div>{result.paperName}</div>
+                      <div>{result.marks}</div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-4">No results available</div>
+                )}
               </div>
             </div>
           </div>

@@ -1,26 +1,45 @@
+import { useState, useEffect } from "react";
 import { AdminSidebar } from "./components/adminsidebar";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "../../components/ui/sidebar";
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  Key,
-} from "react";
 import { ArrowRight, ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const users = Array(8).fill({
-  id: "0001",
-  name: "Amila Perera",
-  contact: "011-1234567",
-});
+// Define User interface
+interface User {
+  _id: string;
+  name: string;
+  lName: string;
+  phone: string;
+  email: string;
+  isActive: boolean;
+}
 
 export default function UsersList() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get<User[]>(
+          "http://localhost:5000/api/users"
+        );
+        setUsers(response.data);
+      } catch (error: any) {
+        setError("Failed to load users");
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  if (error) return <div className="text-red-500">{error}</div>;
+
   return (
     <SidebarProvider>
       <AdminSidebar />
@@ -44,101 +63,23 @@ export default function UsersList() {
               <div>Contact</div>
             </div>
 
-            {users.map(
-              (
-                user: {
-                  id:
-                    | string
-                    | number
-                    | bigint
-                    | boolean
-                    | ReactElement<unknown, string | JSXElementConstructor<any>>
-                    | Iterable<ReactNode>
-                    | ReactPortal
-                    | Promise<
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | ReactPortal
-                        | ReactElement<
-                            unknown,
-                            string | JSXElementConstructor<any>
-                          >
-                        | Iterable<ReactNode>
-                        | null
-                        | undefined
-                      >
-                    | null
-                    | undefined;
-                  name:
-                    | string
-                    | number
-                    | bigint
-                    | boolean
-                    | ReactElement<unknown, string | JSXElementConstructor<any>>
-                    | Iterable<ReactNode>
-                    | ReactPortal
-                    | Promise<
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | ReactPortal
-                        | ReactElement<
-                            unknown,
-                            string | JSXElementConstructor<any>
-                          >
-                        | Iterable<ReactNode>
-                        | null
-                        | undefined
-                      >
-                    | null
-                    | undefined;
-                  contact:
-                    | string
-                    | number
-                    | bigint
-                    | boolean
-                    | ReactElement<unknown, string | JSXElementConstructor<any>>
-                    | Iterable<ReactNode>
-                    | ReactPortal
-                    | Promise<
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | ReactPortal
-                        | ReactElement<
-                            unknown,
-                            string | JSXElementConstructor<any>
-                          >
-                        | Iterable<ReactNode>
-                        | null
-                        | undefined
-                      >
-                    | null
-                    | undefined;
-                },
-                index: Key | null | undefined
-              ) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-3 gap-4 items-center bg-[#d6e6f0] rounded-md px-4 py-3 mb-2"
-                >
-                  <div>{user.id}</div>
-                  <div>{user.name}</div>
-                  <div className="flex justify-between items-center">
-                    {user.contact}
-                    <Link to={"/studentDetails"}>
-                      <button className="bg-white rounded-full p-2 hover:bg-gray-100">
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </Link>
-                  </div>
+            {users.map((user) => (
+              <div
+                key={user._id}
+                className="grid grid-cols-3 gap-4 items-center bg-[#d6e6f0] rounded-md px-4 py-3 mb-2"
+              >
+                <div>{user._id}</div>
+                <div>{`${user.name} ${user.lName}`}</div>
+                <div className="flex justify-between items-center">
+                  {user.phone}
+                  <Link to={`/studentDetails/${user._id}`}>
+                    <button className="bg-white rounded-full p-2 hover:bg-gray-100">
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </Link>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
         </main>
       </SidebarInset>

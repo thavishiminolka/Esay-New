@@ -1,61 +1,3 @@
-
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const examRoutes = require('./routes/examRoutes');
-// const path = require('path');
-// const cors = require('cors');
-
-// const app = express();
-
-// // Enable CORS for requests from the frontend (http://localhost:5173)
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type'],
-// }));
-
-// // Middleware
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
-//   setHeaders: (res) => {
-//     console.log('Serving file from /uploads:', res.req.url);
-//     res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-//   }
-// }));
-
-// // Routes
-// app.use('/api/exams', examRoutes);
-
-// // Custom error handler to return JSON
-// app.use((err, req, res, next) => {
-//   console.error('Unhandled error:', err);
-//   res.status(500).json({ message: 'Internal server error', error: err.message });
-// });
-
-// // MongoDB Connection
-// mongoose.connect('mongodb+srv://adminnew:1234@crud.pbgzc.mongodb.net/exam-shedule', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })
-//   .then(() => console.log('MongoDB connected'))
-//   .catch((err) => console.error('MongoDB connection error:', err));
-
-// // Start Server
-// const PORT = 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// // Ensure uploads directory exists
-// const fs = require('fs');
-// const uploadsDir = path.join(__dirname, 'public/uploads');
-// if (!fs.existsSync(uploadsDir)) {
-//   fs.mkdirSync(uploadsDir, { recursive: true });
-// }
-
-
-
 // const express = require("express");
 // const mongoose = require("mongoose");
 // const examRoutes = require("./routes/examRoutes");
@@ -69,37 +11,36 @@
 
 // const authRouter = require('./routes/authRoutes');
 // require('./cron');
-// const connectDB =require('./config/mongodb')
-
+// const connectDB = require('./config/mongodb');
 
 // const cookieParser = require('cookie-parser');
-
-
-
 
 // const app = express();
 // const port = process.env.PORT || 5000;
 // connectDB();
+
+// // Define allowed origins
+// const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+
 // // Enable CORS
 // app.use(
 //   cors({
-//     origin: ["http://localhost:5173", "http://localhost:5174"],
+//     origin: allowedOrigins, // Use the allowedOrigins variable here
 //     methods: ["GET", "POST", "PUT", "DELETE"],
 //     allowedHeaders: ["Content-Type"],
+//     credentials: true,
 //   })
 // );
 
 // // Middleware
 // app.use(express.json());
 // app.use(cookieParser());
-// app.use(cors({origin:allowedOrigins, credentials:true}))
 // app.use(express.urlencoded({ extended: true }));
 // app.use(morgan("dev"));
 // app.use(
 //   "/uploads",
 //   express.static(path.join(__dirname, "public/uploads"), {
 //     setHeaders: (res, path, stat) => {
-//       const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
 //       const requestOrigin = res.req.headers.origin;
 //       if (allowedOrigins.includes(requestOrigin)) {
 //         res.setHeader("Access-Control-Allow-Origin", requestOrigin);
@@ -108,12 +49,11 @@
 //   })
 // );
 
-
 // // Routes
 // app.use("/api/exams", examRoutes);
 // app.use("/api/price-plans", pricePlanRoutes); // Added
 // app.use('/api/user', userRoutes);
-// app.use('/api/auth',authRouter)
+// app.use('/api/auth', authRouter);
 
 // // Custom error handler
 // app.use((err, req, res, next) => {
@@ -154,12 +94,9 @@
 // }
 
 // // Start Server
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
 // });
-
-
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -169,14 +106,14 @@ const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
 const fs = require("fs");
-const userRoutes = require('./routes/user');
-require('dotenv').config();
+const userRoutes = require("./routes/user");
+require("dotenv").config();
 
-const authRouter = require('./routes/authRoutes');
-require('./cron');
-const connectDB = require('./config/mongodb');
+const authRouter = require("./routes/authRoutes");
+require("./cron");
+const connectDB = require("./config/mongodb");
 
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -215,8 +152,8 @@ app.use(
 // Routes
 app.use("/api/exams", examRoutes);
 app.use("/api/price-plans", pricePlanRoutes); // Added
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRouter);
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRouter);
 
 // Custom error handler
 app.use((err, req, res, next) => {
