@@ -131,11 +131,10 @@ export default function UsersList() {
                   <div className="flex justify-between items-center">
                     {user.contact}
                     <Link to={"/studentDetails"}>
-                    <button className="bg-white rounded-full p-2 hover:bg-gray-100">
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
+                      <button className="bg-white rounded-full p-2 hover:bg-gray-100">
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
                     </Link>
-
                   </div>
                 </div>
               )
