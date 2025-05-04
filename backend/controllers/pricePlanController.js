@@ -1,4 +1,3 @@
-
 const PricePlan = require("../models/PricePlan");
 
 exports.createPricePlan = async (req, res, next) => {
@@ -24,12 +23,10 @@ exports.createPricePlan = async (req, res, next) => {
       "exams",
       "topic"
     );
-    res
-      .status(201)
-      .json({
-        message: "Price plan created successfully",
-        pricePlan: populatedPlan,
-      });
+    res.status(201).json({
+      message: "Price plan created successfully",
+      pricePlan: populatedPlan,
+    });
   } catch (err) {
     next(err);
   }
