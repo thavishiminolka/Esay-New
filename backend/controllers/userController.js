@@ -19,6 +19,43 @@ const getUsers = async (req, res) => {
     }
 };
 
+
+const getUserData = async (req, res) => {
+    try {
+        console.log('getUserData: Fetching data for userId:', req.userId);
+        const user = await userModel.findById(req.userId).select(
+            'name lName email phone address city seatNumber isActive activeUntil passedExams availableExams totalExams'
+        );
+
+        if (!user) {
+            console.log('getUserData: User not found for userId:', req.userId);
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        console.log('getUserData: User data fetched:', { id: user._id, name: user.name, lName: user.lName });
+
+        return res.json({
+            success: true,
+            userId: user._id.toString(),
+            name: user.name,
+            lName: user.lName, // Use lName instead of lastName
+            email: user.email,
+            phone: user.phone,
+            address: user.address,
+            city: user.city,
+            seatNumber: user.seatNumber,
+            isActive: user.isActive,
+            activeUntil: user.activeUntil,
+            passedExams: user.passedExams || 0,
+            availableExams: user.availableExams || 0,
+            totalExams: user.totalExams || 0
+        });
+    } catch (error) {
+        console.error('getUserData error:', error.message, error.stack);
+        return res.status(500).json({ success: false, message: 'Failed to fetch user data' });
+    }
+};
+
 const toggleActivation = async (req, res) => {
     const { id } = req.params;
     console.log('toggleActivation: Received request for ID:', id);
@@ -76,4 +113,4 @@ const toggleActivation = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, toggleActivation };
+module.exports = { getUsers, toggleActivation , getUserData};
