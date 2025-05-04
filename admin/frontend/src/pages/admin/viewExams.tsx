@@ -423,12 +423,37 @@ export default function ViewExams() {
   const [exams, setExams] = useState<Exam[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  // useEffect(() => {
+  //   const fetchExams = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/admin/exams");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch exams");
+  //       }
+  //       const data = await response.json();
+  //       // Ensure id is a string
+  //       const formattedData = data.map((exam: any) => ({
+  //         ...exam,
+  //         id: exam._id.toString(),
+  //       }));
+  //       setExams(formattedData);
+  //     } catch (err) {
+  //       setError(err instanceof Error ? err.message : "An error occurred");
+  //     }
+  //   };
+
+  //   fetchExams();
+  // }, []);
+
   useEffect(() => {
     const fetchExams = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/admin/exams");
+        const response = await fetch(
+          "http://localhost:5000/api/exams/admin/exams"
+        );
         if (!response.ok) {
-          throw new Error("Failed to fetch exams");
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to fetch exams");
         }
         const data = await response.json();
         // Ensure id is a string
@@ -438,7 +463,12 @@ export default function ViewExams() {
         }));
         setExams(formattedData);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("Fetch error:", err);
+        setError(
+          err instanceof Error
+            ? err.message
+            : "An error occurred while fetching exams"
+        );
       }
     };
 
