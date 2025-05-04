@@ -556,7 +556,13 @@ import { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 
+
 import { purchasePlan } from "../Student/services/api";
+
+import PaymentButton from "@/components/PaymentButton";
+
+
+
 
 interface Exam {
   _id: string;

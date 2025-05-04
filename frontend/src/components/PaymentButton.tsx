@@ -159,16 +159,6 @@ const PaymentButton: React.FC = () => {
 
   return (
     <div>
-      {userData && (
-        <div className="user-info">
-          <p>Name: {userData.name}</p>
-          <p>Last Name: {userData.lName}</p>
-          <p>Subscription: {userData.isActive ? 'Active' : 'Inactive'}</p>
-          {userData.isActive && (
-            <p>Active Until: {new Date(userData.activeUntil).toLocaleDateString()}</p>
-          )}
-        </div>
-      )}
       <button 
         id="payhere-payment" 
         onClick={handlePayment}
