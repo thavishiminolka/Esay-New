@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const pricePlanSchema = new mongoose.Schema({
@@ -16,7 +15,7 @@ const pricePlanSchema = new mongoose.Schema({
   duration: {
     type: String,
     required: [true, "Duration is required"],
-    enum: ["monthly", "yearly", "one-time"],
+    enum: ["monthly", "yearly", "one-time", "5-minutes"],
   },
   exams: [
     {

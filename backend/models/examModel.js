@@ -126,10 +126,7 @@
 
 // module.exports = mongoose.model('Exam', examSchema);
 
-
-
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const answerSchema = new mongoose.Schema({
   text: {
@@ -154,7 +151,7 @@ const questionSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['reading', 'listening'],
+    enum: ["reading", "listening"],
     required: true,
   },
   questionText: {
@@ -171,7 +168,7 @@ const questionSchema = new mongoose.Schema({
       validator: function (answers) {
         return answers.length === 4;
       },
-      message: 'Reading and Listening questions must have exactly four answers',
+      message: "Reading and Listening questions must have exactly four answers",
     },
   },
   audio: {
@@ -195,9 +192,13 @@ const examSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (value) {
-        return /^\d{2}:\d{2}:\d{2}$/.test(value) || /^\d+\s+(minutes?|hours?)$/.test(value);
+        return (
+          /^\d{2}:\d{2}:\d{2}$/.test(value) ||
+          /^\d+\s+(minutes?|hours?)$/.test(value)
+        );
       },
-      message: 'Duration must be in the format "HH:mm:ss" (e.g., "01:00:00") or "X minutes/hours" (e.g., "60 minutes")',
+      message:
+        'Duration must be in the format "HH:mm:ss" (e.g., "01:00:00") or "X minutes/hours" (e.g., "60 minutes")',
     },
   },
   readingTimeMinutes: {
@@ -210,7 +211,7 @@ const examSchema = new mongoose.Schema({
         const num = parseInt(value);
         return !isNaN(num) && num >= 0 && num <= 120; // Ensure valid minute range
       },
-      message: 'Reading section time must be between 0 and 120 minutes',
+      message: "Reading section time must be between 0 and 120 minutes",
     },
   },
   listeningTimeMinutes: {
@@ -223,7 +224,7 @@ const examSchema = new mongoose.Schema({
         const num = parseInt(value);
         return !isNaN(num) && num >= 0 && num <= 120; // Ensure valid minute range
       },
-      message: 'Listening section time must be between 0 and 120 minutes',
+      message: "Listening section time must be between 0 and 120 minutes",
     },
   },
   photo: {
@@ -235,10 +236,12 @@ const examSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  guidelines: [{
-    type: String,
-    trim: true,
-  }],
+  guidelines: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   questions: {
     type: [questionSchema],
     required: true,
@@ -246,7 +249,7 @@ const examSchema = new mongoose.Schema({
       validator: function (questions) {
         return questions.length > 0;
       },
-      message: 'Exam must have at least one question',
+      message: "Exam must have at least one question",
     },
   },
   createdAt: {
@@ -255,4 +258,4 @@ const examSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Exam', examSchema);
+module.exports = mongoose.model("Exam", examSchema);

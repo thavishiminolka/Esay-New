@@ -123,26 +123,12 @@ function Navbar() {
             <Link to="/about" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               About
             </Link>
-            {isAuthenticated && canAccessExam && (
-              <div className="relative" ref={dropdownRef}>
-                <button className="hover:text-slate-300 ubuntu text-middle flex items-center" onClick={toggleExamsDropdown}>
-                  Exams <span className="ml-1">▾</span>
-                </button>
-                {examsDropdownOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-1 z-50">
-                    <Link to="/exams/korean" className="block px-4 py-2 hover:bg-gray-100 ubuntu" onClick={closeAllDropdowns}>
-                      Korean
-                    </Link>
-                    <Link to="/exams/japanese" className="block px-4 py-2 hover:bg-gray-100 ubuntu" onClick={closeAllDropdowns}>
-                      Japanese
-                    </Link>
-                    <Link to="/exams/ielts" className="block px-4 py-2 hover:bg-gray-100 ubuntu" onClick={closeAllDropdowns}>
-                      IELTS
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
+            <Link to="/exams" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
+              Exams
+            </Link>
+    
+    
+
             <Link to="/pricing" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Pricing
             </Link>
@@ -163,7 +149,7 @@ function Navbar() {
               {userDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-1 z-50">
                   <Link to="/email-verify" className="block px-4 py-2 hover:bg-gray-100 ubuntu" onClick={closeAllDropdowns}>
-                    Verify Email
+                   
                   </Link>
                   <button
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100 ubuntu"
@@ -230,7 +216,7 @@ function Navbar() {
             <>
               <div className="border-t border-gray-600 pt-2 mt-2"></div>
               <Link to="/email-verify" className="hover:text-slate-300" onClick={closeAllDropdowns}>
-                Verify Email
+               
               </Link>
               <button
                 className="text-left hover:text-slate-300"
