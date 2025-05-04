@@ -110,13 +110,18 @@ const userRoutes = require("./routes/userRoutes.js");
 const adminRoutes = require("./routes/admin");
 require("dotenv").config();
 const authRouter = require("./routes/authRoutes");
-
+const paymentRoutes = require("./routes/payment");
 require("./cron");
 const connectDB = require("./config/mongodb");
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
 
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 const port = process.env.PORT || 5000;
 connectDB();
 
@@ -156,6 +161,7 @@ app.use("/api/price-plans", pricePlanRoutes); // Added
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRoutes);
+app.use("/payment", paymentRoutes);
 
 // Custom error handler
 app.use((err, req, res, next) => {

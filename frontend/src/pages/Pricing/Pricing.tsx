@@ -4,6 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import PaymentButton from "@/components/PaymentButton";
 
 interface Exam {
   _id: string;
@@ -216,6 +217,7 @@ const Pricing: React.FC = () => {
                     >
                       Purchase
                     </button>
+                    <PaymentButton/>
                   </div>
                 ))}
               </div>
