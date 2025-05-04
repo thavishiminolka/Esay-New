@@ -161,7 +161,7 @@ import {
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ChevronLeft, Plus, Paperclip } from "lucide-react";
+import { Plus, Paperclip } from "lucide-react";
 
 export default function AdvertisementPage() {
   const [title, setTitle] = useState("");
@@ -185,7 +185,7 @@ export default function AdvertisementPage() {
         <header className="flex h-16 items-center justify-between bg-main px-6 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
-           
+
             <h1 className="text-3xl font-bold text-[#1a3a54]">
               Advertisements
             </h1>

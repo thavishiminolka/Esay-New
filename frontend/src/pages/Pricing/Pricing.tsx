@@ -787,7 +787,6 @@ const Pricing: React.FC = () => {
                     >
                       Purchase
                     </button>
-                    <PaymentButton/>
                   </div>
                 ))}
               </div>
