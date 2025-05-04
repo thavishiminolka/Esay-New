@@ -188,7 +188,7 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
-                to="/logout"
+                to="/login"
                 className="flex items-center gap-3 p-3 rounded-md hover:bg-[#375286]"
               >
                 <LogOut size={25} />

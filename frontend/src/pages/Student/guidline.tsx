@@ -228,6 +228,7 @@ import { Button } from "../../components/ui/button";
 import { fetchExamById } from "./services/api";
 import { Exam } from "./types/exam";
 import { useExamContext } from "../../../contexts/ExamContext";
+import Applicant from "./components/Applicant";
 
 export default function GuidelinesPage() {
   const { examId } = useExamContext();
@@ -334,6 +335,7 @@ export default function GuidelinesPage() {
           </div>
         </header>
         <main className="p-6 overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
+
           <div className="max-w-4xl mx-auto">
             <div className="bg-[#d6e4ed] rounded-lg p-8 mb-6">
               <h2 className="text-2xl font-bold text-center text-[#1a3a54] mb-8">
@@ -365,6 +367,9 @@ export default function GuidelinesPage() {
         </header>
         <main className="p-6 overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
           <div className="max-w-4xl mx-auto">
+          <div>
+            <Applicant/>
+          </div>
             <div className="bg-[#d6e4ed] rounded-lg p-8 mb-6">
               <h2 className="text-2xl font-bold text-center text-[#1a3a54] mb-8">
                 {error || "Exam not found"}
@@ -397,8 +402,9 @@ export default function GuidelinesPage() {
           </Link>
         </div>
       </header>
-      <main className="p-6 overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
-        <div className="max-w-4xl mx-auto">
+      <main className=" overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
+        <div className="max-w-4xl mx-auto p-0">
+            <Applicant/>
           <div className="bg-[#d6e4ed] rounded-lg p-8 mb-6">
             <h2 className="text-2xl font-bold text-center text-[#1a3a54] mb-8">
               Guidelines for the {exam.topic} Exam
