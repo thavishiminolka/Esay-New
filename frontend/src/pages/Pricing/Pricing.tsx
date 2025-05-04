@@ -4,6 +4,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+<<<<<<< Updated upstream
+=======
+
+import { purchasePlan } from "../Student/services/api";
+>>>>>>> Stashed changes
 import PaymentButton from "@/components/PaymentButton";
 
 interface Exam {
