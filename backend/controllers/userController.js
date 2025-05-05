@@ -1,24 +1,48 @@
 const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
 
+// const getUsers = async (req, res) => {
+//     try {
+//         console.log('getUsers: Starting user fetch');
+//         const users = await userModel.find().select('name email isActive activeUntil');
+//         console.log('getUsers: Users fetched, count:', users.length);
+//         const formattedUsers = users.map(user => ({
+//             id: user._id.toString(),
+//             name: user.name,
+//             isActive: user.isActive,
+//             activeUntil: user.activeUntil
+//         }));
+//         return res.json(formattedUsers);
+//     } catch (error) {
+//         console.error('getUsers error:', error.message, error.stack);
+//         return res.status(500).json({ success: false, message: 'Failed to fetch users' });
+//     }
+// };
+
+
 const getUsers = async (req, res) => {
     try {
         console.log('getUsers: Starting user fetch');
-        const users = await userModel.find().select('name email isActive activeUntil');
+        // Select all required fields
+        const users = await userModel.find().select('name lName email phone isActive activeUntil');
         console.log('getUsers: Users fetched, count:', users.length);
+        
+        // Format the response to match the frontend User interface
         const formattedUsers = users.map(user => ({
-            id: user._id.toString(),
+            _id: user._id.toString(),
             name: user.name,
-            isActive: user.isActive,
-            activeUntil: user.activeUntil
+            lName: user.lName,
+            phone: user.phone,
+            email: user.email,
+            isActive: user.isActive
         }));
+        
         return res.json(formattedUsers);
     } catch (error) {
         console.error('getUsers error:', error.message, error.stack);
         return res.status(500).json({ success: false, message: 'Failed to fetch users' });
     }
 };
-
 
 const getUserData = async (req, res) => {
     try {
