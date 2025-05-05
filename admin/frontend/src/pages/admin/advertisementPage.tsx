@@ -277,10 +277,10 @@ export default function AdvertisementPage() {
               Advertisements
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <span className="text-[#1a3a54]">Username</span>
             <div className="h-10 w-10 rounded-full bg-gray-300" />
-          </div>
+          </div> */}
         </header>
         <main className="flex-1 p-6 overflow-auto">
           <div className="bg-white rounded-lg shadow-sm p-8 max-w-4xl mx-auto">

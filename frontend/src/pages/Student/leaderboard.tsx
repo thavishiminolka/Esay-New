@@ -28,12 +28,12 @@ export default function LeaderboardPage() {
             <SidebarTrigger className=" text-custom-blue2 cursor-pointer" />
             <h1 className="text-4xl  text-custom-blue1 jaini">Leaderboard</h1>
           </div>
-          <div className="flex items-center gap-6 pr-7">
+          {/* <div className="flex items-center gap-6 pr-7">
             <span className="text-custom-blue2">Username</span>
             <Link to="/profile" className="cursor-pointer">
             <div className="h-10 w-10 rounded-full bg-gray-300"/>
             </Link>
-          </div>
+          </div> */}
         </header>
         <main className="overflow-y-auto p-6 mt-10 ml-10 mr-10 rounded-2xl bg-white">
           <div className="max-w-5xl mx-auto">

@@ -48,12 +48,12 @@ export default function Dashboard() {
             <SidebarTrigger className="text-custom-blue2 cursor-pointer" />
             <h1 className="text-4xl text-custom-blue1 jaini">Dashboard</h1>
           </div>
-          <div className="flex items-center gap-6 pr-7">
+          {/* <div className="flex items-center gap-6 pr-7">
             <span className="text-custom-blue2">{userData.name || "Username"}</span>
             <Link to="/profile" className="cursor-pointer">
               <div className="h-10 w-10 rounded-full bg-gray-300" />
             </Link>
-          </div>
+          </div> */}
         </header>
         <main className="p-8 mt-10 ml-10 mr-10 rounded-2xl bg-white border-main mb-7">
           <Card className="border-main mb-6 overflow-hidden bg-gradient-to-b from-[#CCDEE4] to-[#488DB4] text-blue1 py-6">

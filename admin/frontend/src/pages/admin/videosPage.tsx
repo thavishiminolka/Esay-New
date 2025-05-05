@@ -36,10 +36,10 @@ export default function VideosPage() {
             <ChevronLeft className="mr-1 h-5 w-5" />
             <h1 className="text-3xl font-bold text-[#1a3a54]">Schedule Exam</h1>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <span className="text-[#1a3a54]">Username</span>
             <div className="h-10 w-10 rounded-full bg-gray-300" />
-          </div>
+          </div> */}
         </header>
         <main className="flex-1 p-6 overflow-auto">
           <div className="bg-white rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
