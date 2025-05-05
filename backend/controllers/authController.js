@@ -4,42 +4,42 @@ const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
 const transporter = require('../config/nodemailer');
 
-const register = async (req, res) => {
-    const { name, email, password, lName, phone } = req.body;
-    if (!name || !email || !password || !lName || !phone) {
-        return res.json({ success: false, message: 'Missing details' });
-    }
-    if (!process.env.JWT_SECRET) {
-        return res.status(500).json({ success: false, message: 'JWT_SECRET is not defined in the environment variables' });
-    }
-    try {
-        const existingUser = await userModel.findOne({ email });
-        if (existingUser) {
-            return res.json({ success: false, message: 'User already exists' });
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new userModel({ name, email, password: hashedPassword, lName, phone });
-        await user.save();
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
-        const mailOption = {
-            from: process.env.SENDER_EMAIL,
-            to: email,
-            subject: 'Welcome to Esay...',
-            text: `Welcome to Esay international exam training platform. Your account has been successfully created with email id: ${email}`,
-        };
-        await transporter.sendMail(mailOption);
-        return res.json({ success: true });
-    } catch (error) {
-        console.error('Register error:', error.message);
-        return res.json({ success: false, message: error.message });
-    }
-};
+// const register = async (req, res) => {
+//     const { name, email, password, lName, phone } = req.body;
+//     if (!name || !email || !password || !lName || !phone) {
+//         return res.json({ success: false, message: 'Missing details' });
+//     }
+//     if (!process.env.JWT_SECRET) {
+//         return res.status(500).json({ success: false, message: 'JWT_SECRET is not defined in the environment variables' });
+//     }
+//     try {
+//         const existingUser = await userModel.findOne({ email });
+//         if (existingUser) {
+//             return res.json({ success: false, message: 'User already exists' });
+//         }
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const user = new userModel({ name, email, password: hashedPassword, lName, phone });
+//         await user.save();
+//         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+//         res.cookie('token', token, {
+//             httpOnly: true,
+//             secure: process.env.NODE_ENV === 'production',
+//             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+//             maxAge: 7 * 24 * 60 * 60 * 1000,
+//         });
+//         const mailOption = {
+//             from: process.env.SENDER_EMAIL,
+//             to: email,
+//             subject: 'Welcome to Esay...',
+//             text: `Welcome to Esay international exam training platform. Your account has been successfully created with email id: ${email}`,
+//         };
+//         await transporter.sendMail(mailOption);
+//         return res.json({ success: true });
+//     } catch (error) {
+//         console.error('Register error:', error.message);
+//         return res.json({ success: false, message: error.message });
+//     }
+// };
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -73,6 +73,53 @@ const login = async (req, res) => {
         return res.json({ success: false, message: error.message });
     }
 };
+
+
+
+const register = async (req, res) => {
+    const { name, email, password, lName, phone } = req.body;
+    if (!name || !email || !password || !lName || !phone) {
+        return res.json({ success: false, message: 'Missing details' });
+    }
+    if (!process.env.JWT_SECRET) {
+        return res.status(500).json({ success: false, message: 'JWT_SECRET is not defined in the environment variables' });
+    }
+    try {
+        // Validate phone number format - it should now be in E.164 format (e.g., +94701234567)
+        const phoneRegex = /^\+[1-9]\d{1,14}$/;
+        if (!phoneRegex.test(phone)) {
+            return res.json({ success: false, message: 'Invalid phone number format' });
+        }
+
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            return res.json({ success: false, message: 'User already exists' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new userModel({ name, email, password: hashedPassword, lName, phone });
+        await user.save();
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+        const mailOption = {
+            from: process.env.SENDER_EMAIL,
+            to: email,
+            subject: 'Welcome to Esay...',
+            text: `Welcome to Esay international exam training platform. Your account has been successfully created with email id: ${email}`,
+        };
+        await transporter.sendMail(mailOption);
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Register error:', error.message);
+        return res.json({ success: false, message: error.message });
+    }
+};
+
+
 
 const logout = async (req, res) => {
     try {
