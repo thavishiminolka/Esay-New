@@ -9,13 +9,14 @@ import EditExams from "./pages/admin/editExams";
 import AddPricePlan from "./pages/admin/pricePlans";
 import ViewPricePlans from "./pages/admin/viewPricePlans";
 import AdminDashboard from "./pages/admin/dashboard";
-import UsersList from "./pages/admin/users";
+// import UsersList from "./pages/admin/users";
 import StudentDetails from "./pages/admin/studentDetails";
 import ScheduleExams from "./pages/admin/admin";
 import AdvertisementPage from "./pages/admin/advertisementPage";
 import VideosPage from "./pages/admin/videosPage";
 import Login from "./pages/admin/login";
 import Signup from "./pages/admin/signup";
+import UserListPage from "./pages/admin/users";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,7 @@ const App = () => (
           <Route path="/editExams" element={<EditExams />} />
           <Route path="/addPricePlans" element={<AddPricePlan />} />
           <Route path="/viewPricePlans" element={<ViewPricePlans />} />
-          <Route path="/userslist" element={<UsersList />} />
+          <Route path="/userslist" element={<UserListPage/>} />
           <Route path="/studentDetails/:id" element={<StudentDetails />} />
           <Route path="/scheduleExams" element={<ScheduleExams />} />
           <Route path="/advertisements" element={<AdvertisementPage />} />
