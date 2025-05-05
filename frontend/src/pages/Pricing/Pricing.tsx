@@ -325,7 +325,7 @@ const Pricing: React.FC = () => {
 
   return (
     <main
-      className="bg-[url('/body-bg.png')] bg-cover bg-center bg-fixed bg-gray-100 min-h-screen"
+      className="bg-[url('/images/body-bg.png')] bg-cover bg-center bg-fixed bg-gray-100 min-h-screen"
       aria-label="Pricing page"
     >
       <Navbar />

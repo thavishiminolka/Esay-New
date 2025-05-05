@@ -792,7 +792,7 @@ export default PaymentButton;
 
 //         window.payhere.onDismissed = () => {
 //           setError("Payment was dismissed. Plan not activated.");
-//           console.log("Payment dismissed");
+//           console.log("Payment dismissed. No plan activation attempted.");
 //         };
 
 //         window.payhere.onError = (errorMsg: string) => {
