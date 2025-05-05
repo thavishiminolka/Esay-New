@@ -216,8 +216,8 @@ const paymentRoutes = require("./routes/payment");
 require("./cron");
 const connectDB = require("./config/mongodb");
 const cookieParser = require("cookie-parser");
-const bodyParser = require('body-parser');
-
+const bodyParser = require("body-parser");
+const multer = require("multer");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -264,6 +264,110 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRoutes);
 app.use("/payment", paymentRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Advertisement Schema
+const advertisementSchema = new mongoose.Schema({
+  title: String,
+  imageUrl: String,
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Advertisement = mongoose.model("Advertisement", advertisementSchema);
+
+// Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: "./uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5000000 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
+    const mimetype = filetypes.test(file.mimetype);
+    if (extname && mimetype) {
+      return cb(null, true);
+    }
+    cb(new Error("Images only (jpeg, jpg, png)"));
+  },
+}).single("image");
+
+// Routes
+app.get("/api/advertisements", async (req, res) => {
+  try {
+    const advertisements = await Advertisement.find();
+    // Transform imageUrl to include full server address
+    const transformedAds = advertisements.map((ad) => ({
+      ...ad._doc,
+      id: ad._id.toString(),
+      imageUrl: `http://localhost:${port}${ad.imageUrl}`,
+    }));
+    res.json(transformedAds);
+  } catch (error) {
+    console.error("Error fetching advertisements:", error);
+    res.status(500).json({ error: "Failed to fetch advertisements" });
+  }
+});
+
+app.post("/api/advertisements", (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+    try {
+      const { title } = req.body;
+      const imageUrl = `/uploads/${req.file.filename}`;
+
+      const advertisement = new Advertisement({
+        title,
+        imageUrl,
+      });
+
+      await advertisement.save();
+      res.status(201).json({
+        id: advertisement._id.toString(),
+        title: advertisement.title,
+        imageUrl: `http://localhost:${port}${imageUrl}`,
+      });
+    } catch (error) {
+      console.error("Error uploading advertisement:", error);
+      res.status(500).json({ error: "Failed to upload advertisement" });
+    }
+  });
+});
+
+app.delete("/api/advertisements/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const advertisement = await Advertisement.findByIdAndDelete(id);
+    if (!advertisement) {
+      return res.status(404).json({ error: "Advertisement not found" });
+    }
+
+    // Delete the image file from uploads folder
+    const fs = require("fs");
+    const imagePath = path.join(
+      __dirname,
+      "uploads",
+      path.basename(advertisement.imageUrl)
+    );
+    fs.unlink(imagePath, (err) => {
+      if (err) console.error("Error deleting image file:", err);
+    });
+
+    res.json({ message: "Advertisement deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting advertisement:", error);
+    res.status(500).json({ error: "Failed to delete advertisement" });
+  }
+});
 
 // Custom error handler
 app.use((err, req, res, next) => {

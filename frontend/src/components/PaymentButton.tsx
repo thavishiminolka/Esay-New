@@ -1,9 +1,13 @@
 // import React, { useState, useEffect } from "react";
+// import { purchasePlan } from "../pages/Student/services/api";
 
 // declare global {
 //   interface Window {
 //     payhere: {
 //       startPayment: (payment: any) => void;
+//       onCompleted: (orderId: string) => void;
+//       onDismissed: () => void;
+//       onError: (errorMsg: string) => void;
 //     };
 //   }
 // }
@@ -43,7 +47,12 @@
 //   merchant_id: string;
 // }
 
-// const PaymentButton: React.FC = () => {
+// interface PaymentButtonProps {
+//   planId: string;
+//   amount: string;
+// }
+
+// const PaymentButton: React.FC<PaymentButtonProps> = ({ planId, amount }) => {
 //   const [userData, setUserData] = useState<UserData | null>(null);
 //   const [loading, setLoading] = useState<boolean>(true);
 //   const [error, setError] = useState<string | null>(null);
@@ -52,13 +61,12 @@
 //   useEffect(() => {
 //     const fetchUserData = async () => {
 //       try {
-//         // Using credentials: 'include' to send cookies with the request
 //         const response = await fetch("http://localhost:5000/api/user/data", {
 //           method: "GET",
 //           headers: {
 //             "Content-Type": "application/json",
 //           },
-//           credentials: "include", // This ensures cookies are sent with the request
+//           credentials: "include",
 //         });
 
 //         if (!response.ok) {
@@ -86,7 +94,7 @@
 
 //     const paymentDetails: PaymentDetails = {
 //       order_id: `ORDER-${userData.userId}-${Date.now().toString().slice(-6)}`,
-//       amount: "1005.00",
+//       amount: amount,
 //       currency: "LKR",
 //       first_name: userData.name,
 //       last_name: userData.lName,
@@ -104,7 +112,7 @@
 //         headers: {
 //           "Content-Type": "application/json",
 //         },
-//         credentials: "include", // This ensures cookies are sent with the request
+//         credentials: "include",
 //         body: JSON.stringify(paymentDetails),
 //       });
 
@@ -119,7 +127,7 @@
 //           cancel_url: "http://localhost:5000/payment/cancel",
 //           notify_url: "https://localhost:5000/payment/notify",
 //           order_id: paymentDetails.order_id,
-//           items: "Subscription Activation", // You can customize this based on what the user is purchasing
+//           items: "Subscription Activation",
 //           amount: paymentDetails.amount,
 //           currency: paymentDetails.currency,
 //           first_name: paymentDetails.first_name,
@@ -130,6 +138,26 @@
 //           city: paymentDetails.city,
 //           country: paymentDetails.country,
 //           hash: hash,
+//         };
+
+//         // Set up PayHere payment callbacks
+//         window.payhere.onCompleted = async (orderId: string) => {
+//           try {
+//             await purchasePlan(planId);
+//             console.log(`Payment completed for order: ${orderId}`);
+//           } catch (err) {
+//             setError("Failed to activate plan after payment.");
+//             console.error("Plan activation error:", err);
+//           }
+//         };
+
+//         window.payhere.onDismissed = () => {
+//           console.log("Payment dismissed");
+//         };
+
+//         window.payhere.onError = (errorMsg: string) => {
+//           setError(`Payment error: ${errorMsg}`);
+//           console.error("Payment error:", errorMsg);
 //         };
 
 //         // Initialize PayHere payment
@@ -158,7 +186,7 @@
 //         id="payhere-payment"
 //         onClick={handlePayment}
 //         disabled={!userData}
-//         className="payment-button mt-4 w-full bg-custom-blue1 text-white py-2 px-4 rounded-lg hover:bg-blue-950 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-custom-blue1 focus:ring-offset-2 text-base sm:text-lg"
+//         className="mt-4 w-full bg-custom-blue1 text-white py-2 px-4 rounded-lg hover:bg-blue-950 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-custom-blue1 focus:ring-offset-2 text-base sm:text-lg"
 //       >
 //         Purchase
 //       </button>
@@ -167,6 +195,7 @@
 // };
 
 // export default PaymentButton;
+
 import React, { useState, useEffect } from "react";
 import { purchasePlan } from "../pages/Student/services/api";
 
@@ -216,6 +245,11 @@ interface PaymentResponse {
   merchant_id: string;
 }
 
+interface VerifyPaymentResponse {
+  success: boolean;
+  message?: string;
+}
+
 interface PaymentButtonProps {
   planId: string;
   amount: string;
@@ -254,6 +288,34 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ planId, amount }) => {
 
     fetchUserData();
   }, []);
+
+  const verifyPayment = async (orderId: string): Promise<boolean> => {
+    try {
+      const response = await fetch("http://localhost:5000/payment/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ orderId, planId }),
+      });
+
+      const result: VerifyPaymentResponse = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Payment verification failed");
+      }
+
+      return true;
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "An error occurred while verifying payment"
+      );
+      console.error("Payment verification error:", err);
+      return false;
+    }
+  };
 
   const handlePayment = async () => {
     if (!userData) {
@@ -294,7 +356,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ planId, amount }) => {
           merchant_id: merchant_id,
           return_url: "http://localhost:5000/payment/success",
           cancel_url: "http://localhost:5000/payment/cancel",
-          notify_url: "https://localhost:5000/payment/notify",
+          notify_url: "http://localhost:5000/payment/notify",
           order_id: paymentDetails.order_id,
           items: "Subscription Activation",
           amount: paymentDetails.amount,
@@ -311,21 +373,29 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ planId, amount }) => {
 
         // Set up PayHere payment callbacks
         window.payhere.onCompleted = async (orderId: string) => {
-          try {
-            await purchasePlan(planId);
-            console.log(`Payment completed for order: ${orderId}`);
-          } catch (err) {
-            setError("Failed to activate plan after payment.");
-            console.error("Plan activation error:", err);
+          const isPaymentSuccessful = await verifyPayment(orderId);
+          if (isPaymentSuccessful) {
+            try {
+              await purchasePlan(planId);
+              console.log(
+                `Payment completed and plan activated for order: ${orderId}`
+              );
+            } catch (err) {
+              setError("Failed to activate plan after payment.");
+              console.error("Plan activation error:", err);
+            }
+          } else {
+            setError("Payment was not successful. Plan not activated.");
           }
         };
 
         window.payhere.onDismissed = () => {
+          setError("Payment was cancelled or dismissed.");
           console.log("Payment dismissed");
         };
 
         window.payhere.onError = (errorMsg: string) => {
-          setError(`Payment error: ${errorMsg}`);
+          setError(`Payment failed: ${errorMsg}`);
           console.error("Payment error:", errorMsg);
         };
 
