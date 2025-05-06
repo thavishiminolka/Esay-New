@@ -530,10 +530,10 @@ export default function ViewExams() {
               <h1 className="text-3xl font-bold text-[#1a3a54]">View Exams</h1>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <span className="text-[#1a3a54]">Username</span>
             <div className="h-10 w-10 rounded-full bg-gray-300" />
-          </div>
+          </div> */}
         </header>
 
         <main className="p-8">
