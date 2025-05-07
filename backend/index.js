@@ -610,7 +610,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/payment", paymentRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
-
+app.use('/api/results', resultRoutes);
 
 // Advertisement Schema
 const advertisementSchema = new mongoose.Schema({
