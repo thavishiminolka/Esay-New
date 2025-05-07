@@ -327,12 +327,6 @@ export default function GuidelinesPage() {
             </Link>
             <h1 className="text-4xl ml-4 text-custom-blue1 jaini">Guideline</h1>
           </div>
-          <div className="flex items-center gap-6 pr-7">
-            <span className="text-custom-blue2">Username</span>
-            <Link to="/profile" className="cursor-pointer">
-              <div className="h-10 w-10 rounded-full bg-gray-300" />
-            </Link>
-          </div>
         </header>
         <main className="p-6 overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
 
@@ -357,12 +351,6 @@ export default function GuidelinesPage() {
               <ChevronLeft className="mt-1 ml-3 h-7 w-5 cursor-pointer" />
             </Link>
             <h1 className="text-4xl ml-4 text-custom-blue1 jaini">Guideline</h1>
-          </div>
-          <div className="flex items-center gap-6 pr-7">
-            <span className="text-custom-blue2">Username</span>
-            <Link to="/profile" className="cursor-pointer">
-              <div className="h-10 w-10 rounded-full bg-gray-300" />
-            </Link>
           </div>
         </header>
         <main className="p-6 overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
@@ -394,12 +382,6 @@ export default function GuidelinesPage() {
             <ChevronLeft className="mt-1 ml-3 h-7 w-5 cursor-pointer" />
           </Link>
           <h1 className="text-4xl ml-4 text-custom-blue1 jaini">Guideline</h1>
-        </div>
-        <div className="flex items-center gap-6 pr-7">
-          <span className="text-custom-blue2">Username</span>
-          <Link to="/profile" className="cursor-pointer">
-            <div className="h-10 w-10 rounded-full bg-gray-300" />
-          </Link>
         </div>
       </header>
       <main className=" overflow-y-auto flex-1 mt-10 mx-10 rounded-2xl bg-white">
