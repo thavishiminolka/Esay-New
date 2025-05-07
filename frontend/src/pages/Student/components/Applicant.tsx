@@ -74,7 +74,7 @@ const Applicant = () => {
                 user ID
               </div>
               <div className="bg-blue-100 p-2 rounded text-black flex-1 w-full sm:ml-2">
-                {applicantData.userId}
+                {applicantData.userId?.toUpperCase().slice(0, 7) || "N/A"}
               </div>
             </div>
 

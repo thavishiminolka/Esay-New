@@ -72,7 +72,7 @@ export default function Dashboard() {
                   Hello {userData.name || "User"}
                 </h2>
                 <p className="text-lg ubuntu">
-                  Student ID: {userData.userId.slice(0, 7) || "N/A"}
+                Student ID: {userData.userId?.toUpperCase().slice(0, 7) || "N/A"}
                 </p>
               </div>
             </CardContent>
