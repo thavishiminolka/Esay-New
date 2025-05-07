@@ -268,7 +268,6 @@
 //     </Sidebar>
 //   );
 // }
-
 import type * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -283,7 +282,6 @@ import {
   ScanEye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 import {
   Sidebar,
   SidebarContent,
@@ -321,10 +319,11 @@ export function AdminSidebar({
       setActiveTab("View Price Plans");
     }
   }, [location]);
+
   return (
     <Sidebar className={cn("bg-custom-blue1 text-white", className)}>
       <SidebarHeader className="flex items-center justify-center py-6">
-        <img src="logo.png" className="w-auto h-16 " />
+        <img src="logo.png" className="w-auto h-16" />
       </SidebarHeader>
       <hr className="my-4" />
       <SidebarContent>
@@ -334,18 +333,18 @@ export function AdminSidebar({
               <Link
                 to="/adminDashboard"
                 className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("Dashboard")}
               >
                 <LayoutDashboard
                   size={25}
-                  className={` ${
+                  className={
                     activeTab === "Dashboard" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
                   className={`text-lg ubuntu ${
                     activeTab === "Dashboard" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("Dashboard")}
                 >
                   Dashboard
                 </span>
@@ -357,157 +356,159 @@ export function AdminSidebar({
             <SidebarMenuButton asChild>
               <Link
                 to="/userslist"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("UsersList")}
               >
                 <Users
                   size={25}
-                  className={`${
+                  className={
                     activeTab === "UsersList" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "UsersList" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("UsersList")}
                 >
                   Users
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/scheduleExams"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("ScheduleExams")}
               >
                 <BookCheck
                   size={25}
-                  className={`${
+                  className={
                     activeTab === "ScheduleExams" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "ScheduleExams" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("ScheduleExams")}
                 >
                   Schedule Exam
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/viewExams"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("Exams")}
               >
                 <BookOpen
                   size={25}
-                  className={`${
-                    activeTab === "Exams" ? "text-custom-blue3" : ""
-                  }`}
+                  className={activeTab === "Exams" ? "text-custom-blue3" : ""}
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "Exams" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("Exams")}
                 >
                   View Exams
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/addvideos"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("Videos")}
               >
                 <Video
                   size={25}
-                  className={`${
-                    activeTab === "Videos" ? "text-custom-blue3" : ""
-                  }`}
+                  className={activeTab === "Videos" ? "text-custom-blue3" : ""}
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "Videos" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("Videos")}
                 >
                   Videos
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/advertisements"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("Advertisements")}
               >
                 <Megaphone
                   size={25}
-                  className={`${
+                  className={
                     activeTab === "Advertisements" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "Advertisements" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("Advertisements")}
                 >
                   Advertisements
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/addPricePlans"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("Add Price Plans")}
               >
                 <CirclePlus
                   size={25}
-                  className={`${
+                  className={
                     activeTab === "Add Price Plans" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "Add Price Plans" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("Add Price Plans")}
                 >
                   Add Price Plans
                 </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
                 to="/viewPricePlans"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
+                onClick={() => setActiveTab("View Price Plans")}
               >
                 <ScanEye
                   size={25}
-                  className={`${
+                  className={
                     activeTab === "View Price Plans" ? "text-custom-blue3" : ""
-                  }`}
+                  }
                 />
                 <span
-                  className={`text-lg ubuntu${
+                  className={`text-lg ubuntu ${
                     activeTab === "View Price Plans" ? "text-custom-blue3" : ""
                   }`}
-                  onClick={() => setActiveTab("View Price Plans")}
                 >
                   View Price Plans
                 </span>
@@ -521,14 +522,9 @@ export function AdminSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              {/* <a href="#" className="flex items-center gap-3 text-lg">
-                <LogOut className="h-5 w-5" />
-                <span>Logout</span>
-              </a> */}
-
               <Link
                 to="/"
-                className="flex items-center gap- p-2 rounded-md hover:bg-[#375286]"
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
               >
                 <LogOut size={25} />
                 <span className="text-lg ubuntu">Logout</span>

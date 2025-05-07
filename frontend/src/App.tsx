@@ -68,6 +68,9 @@ import EmailVerify from "./Auth/EmailVerify";
 import ResetPassword from "./Auth/ResetPassword";
 import UserList from "./Auth/userActivation";
 import { ExamProvider } from "../contexts/ExamContext";
+import PrivacyPolicy from "./pages/Privacy Policy/PrivacyPolicy";
+import TermsAndConditions from "./pages/Terms and Conditions/TermsAndConditions";
+import RefundPolicy from "./pages/Refund Policy/RefundPolicy";
 
 function App() {
   return (
@@ -92,6 +95,9 @@ function App() {
           <Route path="/myresult" element={<MyResultsPage />} />
           <Route path="/notification" element={<NotificationsPage />} />
           <Route path="/quiz" element={<ExamPage />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/refundPolicy" element={<RefundPolicy />} />
         </Routes>
       </BrowserRouter>
     </ExamProvider>
