@@ -221,15 +221,9 @@ export default function VideosPage() {
           <header className="flex h-16 items-center justify-between bg-main px-6 sticky top-0 z-10 shadow-sm">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-[#1a3a54]" />
-              <ChevronLeft className="mr-1 h-5 w-5" />
               <h1 className="text-3xl font-bold text-[#1a3a54]">
                 Manage Videos
               </h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#1a3a54]">Username</span>
-              <div className="h-10 w-10 rounded-full bg-gray-300" />
-
             </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">

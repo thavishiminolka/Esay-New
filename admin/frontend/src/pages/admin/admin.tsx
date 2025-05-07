@@ -2327,7 +2327,7 @@ export default function ScheduleExams() {
         <header className="flex h-16 items-center justify-between bg-main px-6 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
-            <ChevronLeft className="mr-1 h-5 w-5" />
+     
             <h1 className="text-3xl font-bold text-[#1a3a54]">Schedule Exam</h1>
           </div>
           {/* <div className="flex items-center gap-2">

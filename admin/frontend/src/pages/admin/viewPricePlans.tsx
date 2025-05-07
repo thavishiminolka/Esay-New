@@ -285,7 +285,6 @@ export default function ViewPricePlans() {
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
             <div className="flex items-center gap-2">
-              <ChevronLeft className="mr-1 h-5 w-5" />
               <h1 className="text-3xl font-bold text-[#1a3a54]">
                 View Price Plans
               </h1>
