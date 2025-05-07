@@ -11,14 +11,14 @@ interface UserData {
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // const [examsDropdownOpen, setExamsDropdownOpen] = useState(false);
-  // const [mobileExamsDropdownOpen, setMobileExamsDropdownOpen] = useState(false);
+  const [examsDropdownOpen, setExamsDropdownOpen] = useState(false);
+  const [mobileExamsDropdownOpen, setMobileExamsDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  // const [canAccessExam, setCanAccessExam] = useState(false); // New state for exam access
-  // const dropdownRef = useRef<HTMLDivElement>(null);
-  // const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  const [canAccessExam, setCanAccessExam] = useState(false); // New state for exam access
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,16 +36,16 @@ function Navbar() {
           // Check exam access
           const accessResponse = await api.get("/api/auth/check-access");
           console.log("checkAccess result:", accessResponse.data); // Debug log
-          // setCanAccessExam(accessResponse.data.canAccessExam || false);
+          setCanAccessExam(accessResponse.data.canAccessExam || false);
         } else {
           setUserData(null); // Clear user data if not authenticated
-          // setCanAccessExam(false); // Clear exam access
+          setCanAccessExam(false); // Clear exam access
         }
       } catch (error) {
         console.error("Auth check failed:", error);
         setIsAuthenticated(false);
         setUserData(null);
-        // setCanAccessExam(false);
+        setCanAccessExam(false);
       }
     };
     
@@ -79,12 +79,12 @@ function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      //   setExamsDropdownOpen(false);
-      // }
-      // if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
-      //   setMobileExamsDropdownOpen(false);
-      // }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setExamsDropdownOpen(false);
+      }
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setMobileExamsDropdownOpen(false);
+      }
       if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
         setUserDropdownOpen(false);
       }
@@ -94,12 +94,12 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // const toggleExamsDropdown = () => setExamsDropdownOpen(!examsDropdownOpen);
-  // const toggleMobileExamsDropdown = () => setMobileExamsDropdownOpen(!mobileExamsDropdownOpen);
+  const toggleExamsDropdown = () => setExamsDropdownOpen(!examsDropdownOpen);
+  const toggleMobileExamsDropdown = () => setMobileExamsDropdownOpen(!mobileExamsDropdownOpen);
   const toggleUserDropdown = () => setUserDropdownOpen(!userDropdownOpen);
   const closeAllDropdowns = () => {
-    // setExamsDropdownOpen(false);
-    // setMobileExamsDropdownOpen(false);
+    setExamsDropdownOpen(false);
+    setMobileExamsDropdownOpen(false);
     setUserDropdownOpen(false);
     setMobileMenuOpen(false);
   };
@@ -119,9 +119,6 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-15 absolute left-1/2 transform -translate-x-1/2">
             <Link to="/" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Home
-            </Link>
-            <Link to="/about" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
-              About
             </Link>
             <Link to="/exams" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Exams
@@ -179,9 +176,6 @@ function Navbar() {
         <div className="flex flex-col space-y-3">
           <Link to="/" className="hover:text-slate-300" onClick={closeAllDropdowns}>
             Home
-          </Link>
-          <Link to="/about" className="hover:text-slate-300" onClick={closeAllDropdowns}>
-            About
           </Link>
           <Link to="/exams" className="hover:text-slate-300" onClick={closeAllDropdowns}>
             Exams
