@@ -213,6 +213,7 @@ export default function VideosPage() {
   };
 
   return (
+
     <ErrorBoundary>
       <SidebarProvider>
         <AdminSidebar />
@@ -228,6 +229,7 @@ export default function VideosPage() {
             <div className="flex items-center gap-2">
               <span className="text-[#1a3a54]">Username</span>
               <div className="h-10 w-10 rounded-full bg-gray-300" />
+
             </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">

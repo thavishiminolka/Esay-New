@@ -562,6 +562,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const app = express();
+const resultRoutes = require('./routes/resultRoutes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -607,7 +608,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRoutes);
 app.use("/payment", paymentRoutes);
+
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
+
 
 // Advertisement Schema
 const advertisementSchema = new mongoose.Schema({

@@ -1189,10 +1189,10 @@ export default function AddPricePlan() {
               </h1>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <span className="text-[#1a3a54]">Username</span>
             <div className="h-10 w-10 rounded-full bg-gray-300" />
-          </div>
+          </div> */}
         </header>
 
         <main className="p-8">
