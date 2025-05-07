@@ -11,14 +11,14 @@ interface UserData {
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [examsDropdownOpen, setExamsDropdownOpen] = useState(false);
-  const [mobileExamsDropdownOpen, setMobileExamsDropdownOpen] = useState(false);
+  // const [examsDropdownOpen, setExamsDropdownOpen] = useState(false);
+  // const [mobileExamsDropdownOpen, setMobileExamsDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [canAccessExam, setCanAccessExam] = useState(false); // New state for exam access
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  // const [canAccessExam, setCanAccessExam] = useState(false); // New state for exam access
+  // const dropdownRef = useRef<HTMLDivElement>(null);
+  // const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,16 +36,16 @@ function Navbar() {
           // Check exam access
           const accessResponse = await api.get("/api/auth/check-access");
           console.log("checkAccess result:", accessResponse.data); // Debug log
-          setCanAccessExam(accessResponse.data.canAccessExam || false);
+          // setCanAccessExam(accessResponse.data.canAccessExam || false);
         } else {
           setUserData(null); // Clear user data if not authenticated
-          setCanAccessExam(false); // Clear exam access
+          // setCanAccessExam(false); // Clear exam access
         }
       } catch (error) {
         console.error("Auth check failed:", error);
         setIsAuthenticated(false);
         setUserData(null);
-        setCanAccessExam(false);
+        // setCanAccessExam(false);
       }
     };
     
@@ -79,12 +79,12 @@ function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setExamsDropdownOpen(false);
-      }
-      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
-        setMobileExamsDropdownOpen(false);
-      }
+      // if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      //   setExamsDropdownOpen(false);
+      // }
+      // if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+      //   setMobileExamsDropdownOpen(false);
+      // }
       if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
         setUserDropdownOpen(false);
       }
@@ -94,12 +94,12 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggleExamsDropdown = () => setExamsDropdownOpen(!examsDropdownOpen);
-  const toggleMobileExamsDropdown = () => setMobileExamsDropdownOpen(!mobileExamsDropdownOpen);
+  // const toggleExamsDropdown = () => setExamsDropdownOpen(!examsDropdownOpen);
+  // const toggleMobileExamsDropdown = () => setMobileExamsDropdownOpen(!mobileExamsDropdownOpen);
   const toggleUserDropdown = () => setUserDropdownOpen(!userDropdownOpen);
   const closeAllDropdowns = () => {
-    setExamsDropdownOpen(false);
-    setMobileExamsDropdownOpen(false);
+    // setExamsDropdownOpen(false);
+    // setMobileExamsDropdownOpen(false);
     setUserDropdownOpen(false);
     setMobileMenuOpen(false);
   };
@@ -126,9 +126,6 @@ function Navbar() {
             <Link to="/exams" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Exams
             </Link>
-    
-    
-
             <Link to="/pricing" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Pricing
             </Link>
@@ -186,26 +183,10 @@ function Navbar() {
           <Link to="/about" className="hover:text-slate-300" onClick={closeAllDropdowns}>
             About
           </Link>
-          {isAuthenticated && canAccessExam && (
-            <div className="relative" ref={mobileDropdownRef}>
-              <button className="hover:text-slate-300 flex items-center" onClick={toggleMobileExamsDropdown}>
-                Exams <span className="ml-1">▾</span>
-              </button>
-              {mobileExamsDropdownOpen && (
-                <div className="ml-4 mt-2 space-y-2 z-50">
-                  <Link to="/exams/korean" className="block hover:text-slate-300" onClick={closeAllDropdowns}>
-                    Korean
-                  </Link>
-                  <Link to="/exams/japanese" className="block hover:text-slate-300" onClick={closeAllDropdowns}>
-                    Japanese
-                  </Link>
-                  <Link to="/exams/ielts" className="block hover:text-slate-300" onClick={closeAllDropdowns}>
-                    IELTS
-                  </Link>
-                </div>
-              )}
-            </div>
-          )}
+          <Link to="/exams" className="hover:text-slate-300" onClick={closeAllDropdowns}>
+            Exams
+          </Link>
+
           <Link to="/pricing" className="hover:text-slate-300" onClick={closeAllDropdowns}>
             Pricing
           </Link>
