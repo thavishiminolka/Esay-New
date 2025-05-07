@@ -8,9 +8,24 @@ type FeedbackItem = {
 
 export default function FeedbackSection() {
   const feedbackItems: FeedbackItem[] = [
-    { username: "Username", content: "Feedback", rating: 3 },
-    { username: "Username", content: "Feedback", rating: 3 },
-    { username: "Username", content: "Feedback", rating: 3 },
+    {
+      username: "Sarah_M",
+      content:
+        "The exam platform was intuitive and easy to navigate. The practice tests really helped me prepare effectively!",
+      rating: 5,
+    },
+    {
+      username: "JohnDoe92",
+      content:
+        "Good content, but I experienced some lag during the mock exams. Overall, a solid learning tool.",
+      rating: 3,
+    },
+    {
+      username: "Emma_Learner",
+      content:
+        "Loved the detailed explanations for each question. It would be great to have more video tutorials.",
+      rating: 4,
+    },
   ];
 
   return (
