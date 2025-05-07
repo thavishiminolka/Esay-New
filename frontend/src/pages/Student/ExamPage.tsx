@@ -256,7 +256,7 @@ const ExamPage: React.FC = () => {
 
           const data = await response.json();
           console.log("Result saved successfully:", data);
-          alert(`Result saved successfully! Attempt ${data.result.attempt}`);
+          // alert(`Result saved successfully! Attempt ${data.result.attempt}`);
           setHasSaved(true); // Mark as saved to prevent re-running
         } catch (error: unknown) {
           const errorMessage =
@@ -264,7 +264,7 @@ const ExamPage: React.FC = () => {
               ? error.message
               : "Failed to save result. Please try again.";
           console.error("Error saving result:", error);
-          alert(errorMessage);
+          // alert(errorMessage);
         }
       };
 

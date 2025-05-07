@@ -24,13 +24,8 @@ const ContactForm = () => {
               </p>
 
               <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-700">
-                <p>
-                  1055 Arthur ave Elk Groot, 67.
-                  <br />
-                  New Palmas South Carolina.
-                </p>
-                <p>+1 234 678 9108 99</p>
-                <p>Contact@moralizer.com</p>
+                <h2 className="font-bold">+94 70 407 6452</h2>
+                <p className="font-bold">info@epstoicsir.com</p>
               </div>
 
               {/* Social Media Icons */}
