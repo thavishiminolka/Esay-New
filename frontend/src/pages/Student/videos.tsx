@@ -174,10 +174,13 @@ export default function VideosPage() {
           <div className="flex items-center gap-12">
             <SidebarTrigger className="text-custom-blue2 cursor-pointer" />
             <h1 className="text-4xl text-custom-blue1 jaini">Videos</h1>
+            <SidebarTrigger className="text-custom-blue2 cursor-pointer" />
+            <h1 className="text-4xl text-custom-blue1 jaini">Videos</h1>
           </div>
           <div className="flex items-center gap-6 pr-7">
             <span className="text-custom-blue2">Username</span>
             <Link to="/profile" className="cursor-pointer">
+              <div className="h-10 w-10 rounded-full bg-gray-300" />
               <div className="h-10 w-10 rounded-full bg-gray-300" />
             </Link>
           </div>
