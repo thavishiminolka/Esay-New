@@ -74,7 +74,7 @@ export default function EditExams() {
 
   const [guidelines, setGuidelines] = useState<number[]>([]);
   const [questions, setQuestions] = useState<number[]>([]);
-  const [language, setLanguage] = useState<string>("");
+  const [language, setLanguage] = useState<string>("korean");
   const [topic, setTopic] = useState<string>("");
   const [durationHours, setDurationHours] = useState<string>("");
   const [durationMinutes, setDurationMinutes] = useState<string>("");
@@ -922,7 +922,6 @@ export default function EditExams() {
                   </SelectTrigger>
                   <SelectContent className="bg-white border border-[#4894c4] rounded-lg shadow-lg">
                     <SelectItem value="korean">Korean</SelectItem>
-                    <SelectItem value="japanese">Japanese</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

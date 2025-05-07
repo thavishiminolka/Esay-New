@@ -2359,7 +2359,6 @@ export default function ScheduleExams() {
                   </SelectTrigger>
                   <SelectContent className="bg-white border border-[#4894c4] rounded-lg shadow-lg">
                     <SelectItem value="korean">Korean</SelectItem>
-                    <SelectItem value="japanese">Japanese</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
