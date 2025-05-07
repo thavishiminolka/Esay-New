@@ -70,12 +70,12 @@ const userAuth = async (req, res, next) => {
         }
 
         // Validate name and email
-        if (!user.name || !user.email) {
+        if (!user.name || !user.email || !user.lName) {
             return res.status(400).json({ success: false, message: 'User profile incomplete: name or email missing' });
         }
 
         // Set req.user with name and email
-        req.user = { name: user.name, email: user.email };
+        req.user = { name: user.name, email: user.email, lName: user.lName };
         console.log("userAuth: Set req.user with name and email:", req.user);
 
         next();
