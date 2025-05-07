@@ -210,8 +210,19 @@ export function AppSidebar({
                 to="/leaderboard"
                 className="flex items-center gap-3 p-3 rounded-md hover:bg-[#375286]"
               >
-                <Trophy size={25} />
-                <span className="text-lg ubuntu">Leaderboard</span>
+                <Trophy
+                  size={25}
+                  className={`${
+                    activeTab === "Leaderboard" ? "text-custom-blue3" : ""
+                  }`}
+                />
+                <span
+                  className={`text-lg ubuntu ${
+                    activeTab === "Leaderboard" ? "text-custom-blue3" : ""
+                  }`}
+                >
+                  Leaderboard
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -221,8 +232,19 @@ export function AppSidebar({
                 to="/videos"
                 className="flex items-center gap-3 p-3 rounded-md hover:bg-[#375286]"
               >
-                <Video size={25} />
-                <span className="text-lg ubuntu">Videos</span>
+                <Video
+                  size={25}
+                  className={`${
+                    activeTab === "Videos" ? "text-custom-blue3" : ""
+                  }`}
+                />
+                <span
+                  className={`text-lg ubuntu ${
+                    activeTab === "Videos" ? "text-custom-blue3" : ""
+                  }`}
+                >
+                  Videos
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -1,12 +1,11 @@
 @import "tailwindcss";
 
-
 @layer base {
   :root {
     --font-ubuntu: "Ubuntu", sans-serif;
     --font-jaini: "Jaini", system-ui;
-    --font-ubuntuC:"Ubuntu Condensed", sans-serif;
-    --font-teachers:"Teachers", sans-serif;
+    --font-ubuntuC: "Ubuntu Condensed", sans-serif;
+    --font-teachers: "Teachers", sans-serif;
   }
 
   .ubuntu {
@@ -16,11 +15,11 @@
     font-family: var(--font-jaini);
   }
 
-  .ubuntuC{
+  .ubuntuC {
     font-family: var(--font-ubuntuC);
   }
-  .teacher{
-    font-family:  var(--font-teachers);
+  .teacher {
+    font-family: var(--font-teachers);
   }
 }
 /* @font-face {
@@ -68,29 +67,31 @@
     border-color: #375286;
   }
   .bg-custom-blue3 {
-    background-color: #488DB4;
+    background-color: #488db4;
   }
   .text-custom-blue3 {
-    color: #488DB4;
+    color: #488db4;
   }
   .border-custom-blue3 {
-    border-color: #488DB4;
+    border-color: #488db4;
   }
 
+  .hover\:text-custom-blue3:hover {
+    color: #488db4;
+  }
 
   .bg-custom-blue4 {
-    background-color: #85C4E4;
+    background-color: #85c4e4;
   }
   .text-custom-blue4 {
-    color: #85C4E4;
+    color: #85c4e4;
   }
   .border-custom-blue4 {
-    border-color: #85C4E4;
+    border-color: #85c4e4;
   }
 
-
   .bg-custom-blue5 {
-    background-color: #CCDEE4;
+    background-color: #ccdee4;
   }
   .text-custom-blue5 {
     color: #ccdee4;
@@ -99,16 +100,13 @@
     border-color: #ccdee4;
   }
 
-
   .bg-main {
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
   }
   .text-main {
-    color: #F1F1F1;
+    color: #f1f1f1;
   }
   .border-main {
-    border-color: #F1F1F1;
-}
-
-
+    border-color: #f1f1f1;
+  }
 }
