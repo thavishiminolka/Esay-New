@@ -73,7 +73,7 @@
 
 
 
-const Result = require('../models/Result');
+const Result = require('../models/result');
 
 const saveResult = async (req, res) => {
   try {
