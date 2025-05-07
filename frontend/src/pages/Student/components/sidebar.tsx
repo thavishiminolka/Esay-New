@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { Home, LayoutDashboard, BookOpen, Trophy, Video, LogOut } from 'lucide-react';
+import {
+  Home,
+  LayoutDashboard,
+  BookOpen,
+  Trophy,
+  Video,
+  LogOut,
+} from "lucide-react";
 
 // type SidebarProps = {
 //   isOpen: boolean;
@@ -100,6 +107,8 @@ import { Home, LayoutDashboard, BookOpen, Trophy, Video, LogOut } from 'lucide-r
 // export default Sidebar;
 
 import type * as React from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { cn } from "../../../lib/utils";
 
@@ -117,12 +126,27 @@ import {
 export function AppSidebar({
   className,
 }: React.ComponentProps<typeof Sidebar>) {
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setActiveTab("Dashboard");
+    } else if (location.pathname === "/exams") {
+      setActiveTab("Exams");
+    } else if (location.pathname === "/leaderboard") {
+      setActiveTab("Leaderboard");
+    } else if (location.pathname === "/videos") {
+      setActiveTab("Videos");
+    }
+  }, [location]);
+
   return (
     <Sidebar className={cn("bg-custom-blue1 text-white", className)}>
       <SidebarHeader className="flex items-center justify-center py-6">
-        <img src="logo.png" className="w-auto h-16 "/>
+        <img src="logo.png" className="w-auto h-16 " />
       </SidebarHeader>
-      <hr className="my-4"/>
+      <hr className="my-4" />
       <SidebarContent>
         <SidebarMenu className="space-y-4">
           <SidebarMenuItem>
@@ -142,8 +166,19 @@ export function AppSidebar({
                 to="/dashboard"
                 className="flex items-center gap-3 p-3 rounded-md hover:bg-[#375286]"
               >
-                <LayoutDashboard  size={25} />
-                <span className="text-lg ubuntu">Dashboard</span>
+                <LayoutDashboard
+                  size={25}
+                  className={`${
+                    activeTab === "Dashboard" ? "text-custom-blue3" : ""
+                  }`}
+                />
+                <span
+                  className={`text-lg ubuntu ${
+                    activeTab === "Dashboard" ? "text-custom-blue3" : ""
+                  }`}
+                >
+                  Dashboard
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -153,8 +188,19 @@ export function AppSidebar({
                 to="/exams"
                 className="flex items-center gap-3 p-3 rounded-md hover:bg-[#375286]"
               >
-                <BookOpen size={25} />
-                <span className="text-lg ubuntu">Exams</span>
+                <BookOpen
+                  size={25}
+                  className={`${
+                    activeTab === "Exams" ? "text-custom-blue3" : ""
+                  }`}
+                />
+                <span
+                  className={`text-lg ubuntu ${
+                    activeTab === "Exams" ? "text-custom-blue3" : ""
+                  }`}
+                >
+                  Exams
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

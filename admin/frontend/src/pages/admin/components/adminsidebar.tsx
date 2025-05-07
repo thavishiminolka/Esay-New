@@ -269,10 +269,6 @@
 //   );
 // }
 
-
-
-
-
 import type * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -284,7 +280,7 @@ import {
   Megaphone,
   BookCheck,
   CirclePlus,
-  ScanEye
+  ScanEye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -328,7 +324,7 @@ export function AdminSidebar({
   return (
     <Sidebar className={cn("bg-custom-blue1 text-white", className)}>
       <SidebarHeader className="flex items-center justify-center py-6">
-      <img src="logo.png" className="w-auto h-16 "/>
+        <img src="logo.png" className="w-auto h-16 " />
       </SidebarHeader>
       <hr className="my-4" />
       <SidebarContent>
