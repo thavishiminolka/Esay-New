@@ -17,7 +17,6 @@
 //   SelectValue,
 // } from "../../components/ui/select";
 // import { Textarea } from "../../components/ui/textarea";
-// // import { useNavigate } from "react-router-dom";
 
 // interface Answer {
 //   text?: string;
@@ -63,6 +62,7 @@
 //   const [questionData, setQuestionData] = useState<QuestionDataMap>({});
 //   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 //   const [formErrors, setFormErrors] = useState<string[]>([]);
+//   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false); // New state for modal visibility
 //   const fileInputRef = useRef<HTMLInputElement>(null);
 //   const questionPhotoInputRefs = useRef<{
 //     [key: number]: HTMLInputElement | null;
@@ -71,7 +71,6 @@
 //     [key: number]: { [key: number]: HTMLInputElement | null };
 //   }>({});
 //   const audioInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
-//   // const navigate = useNavigate();
 
 //   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 
@@ -732,7 +731,7 @@
 //       }
 
 //       await response.json();
-//       alert("Exam saved successfully!");
+//       setShowSuccessModal(true); // Show the success modal instead of alert
 //       clearForm();
 //     } catch (error: unknown) {
 //       console.error("Error saving exam:", error);
@@ -773,10 +772,10 @@
 //             <ChevronLeft className="mr-1 h-5 w-5" />
 //             <h1 className="text-3xl font-bold text-[#1a3a54]">Schedule Exam</h1>
 //           </div>
-//           <div className="flex items-center gap-2">
+//           {/* <div className="flex items-center gap-2">
 //             <span className="text-[#1a3a54]">Username</span>
 //             <div className="h-10 w-10 rounded-full bg-gray-300" />
-//           </div>
+//           </div> */}
 //         </header>
 
 //         <main className="p-8">
@@ -802,7 +801,6 @@
 //                   </SelectTrigger>
 //                   <SelectContent className="bg-white border border-[#4894c4] rounded-lg shadow-lg">
 //                     <SelectItem value="korean">Korean</SelectItem>
-//                     <SelectItem value="japanese">Japanese</SelectItem>
 //                   </SelectContent>
 //                 </Select>
 //               </div>
@@ -1547,6 +1545,28 @@
 //                 </Button>
 //               </div>
 //             </form>
+
+//             {/* Success Modal */}
+//             {showSuccessModal && (
+//               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//                 <div className="bg-white rounded-lg p-6 w-96 max-w-full shadow-lg">
+//                   <h3 className="text-lg font-semibold text-[#1a3a54] mb-4">
+//                     Success
+//                   </h3>
+//                   <p className="text-gray-700 mb-6">
+//                     Exam saved successfully!
+//                   </p>
+//                   <div className="flex justify-end">
+//                     <Button
+//                       onClick={() => setShowSuccessModal(false)}
+//                       className="bg-[#4894c4] hover:bg-[#3a7da9] text-white rounded-md px-4"
+//                     >
+//                       Close
+//                     </Button>
+//                   </div>
+//                 </div>
+//               </div>
+//             )}
 //           </div>
 //         </main>
 //       </SidebarInset>
@@ -1554,7 +1574,7 @@
 //   );
 // }
 
-
+"use client";
 
 import { useState, FormEvent, ChangeEvent, useRef } from "react";
 import { AdminSidebar } from "./components/adminsidebar";
@@ -1604,6 +1624,12 @@ interface QuestionDataMap {
   [key: number]: QuestionData;
 }
 
+type Notification = {
+  id: string;
+  type: "success" | "error";
+  message: string;
+};
+
 export default function ScheduleExams() {
   const [guidelines, setGuidelines] = useState<number[]>([]);
   const [questions, setQuestions] = useState<number[]>([]);
@@ -1619,8 +1645,7 @@ export default function ScheduleExams() {
   const [guidelineTexts, setGuidelineTexts] = useState<GuidelineTexts>({});
   const [questionData, setQuestionData] = useState<QuestionDataMap>({});
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<string[]>([]);
-  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false); // New state for modal visibility
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const questionPhotoInputRefs = useRef<{
     [key: number]: HTMLInputElement | null;
@@ -1631,6 +1656,19 @@ export default function ScheduleExams() {
   const audioInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+
+  // Show notification
+  const showNotification = (type: "success" | "error", message: string) => {
+    const id = Math.random().toString(36).substring(2, 9);
+    const newNotification = { id, type, message };
+    setNotifications((prev) => [...prev, newNotification]);
+    setTimeout(() => removeNotification(id), 5000);
+  };
+
+  // Remove notification
+  const removeNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
 
   const addGuideline = () => {
     const newIndex = guidelines.length > 0 ? Math.max(...guidelines) + 1 : 1;
@@ -1688,7 +1726,6 @@ export default function ScheduleExams() {
     setGuidelineTexts({});
     setQuestions([]);
     setQuestionData({});
-    setFormErrors([]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -1719,14 +1756,14 @@ export default function ScheduleExams() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setFormErrors([
-          ...formErrors,
+        showNotification(
+          "error",
           `Photo file size exceeds 10MB limit (size: ${(
             file.size /
             1024 /
             1024
-          ).toFixed(2)}MB)`,
-        ]);
+          ).toFixed(2)}MB)`
+        );
         return;
       }
       setPhoto(file);
@@ -1759,14 +1796,14 @@ export default function ScheduleExams() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setFormErrors([
-          ...formErrors,
+        showNotification(
+          "error",
           `Question ${questionIndex + 1} photo exceeds 10MB limit (size: ${(
             file.size /
             1024 /
             1024
-          ).toFixed(2)}MB)`,
-        ]);
+          ).toFixed(2)}MB)`
+        );
         return;
       }
       const reader = new FileReader();
@@ -1812,14 +1849,14 @@ export default function ScheduleExams() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setFormErrors([
-          ...formErrors,
+        showNotification(
+          "error",
           `Question ${questionIndex + 1}, Answer ${
             answerIndex + 1
           } photo exceeds 10MB limit (size: ${(file.size / 1024 / 1024).toFixed(
             2
-          )}MB)`,
-        ]);
+          )}MB)`
+        );
         return;
       }
       const reader = new FileReader();
@@ -1879,14 +1916,14 @@ export default function ScheduleExams() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setFormErrors([
-          ...formErrors,
+        showNotification(
+          "error",
           `Audio file for question ${
             questionIndex + 1
           } exceeds 10MB limit (size: ${(file.size / 1024 / 1024).toFixed(
             2
-          )}MB)`,
-        ]);
+          )}MB)`
+        );
         return;
       }
       const reader = new FileReader();
@@ -2176,12 +2213,11 @@ export default function ScheduleExams() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    setFormErrors([]);
     setIsSubmitting(true);
 
     const errors = validateForm();
     if (errors.length > 0) {
-      setFormErrors(errors);
+      errors.forEach((error) => showNotification("error", error));
       setIsSubmitting(false);
       return;
     }
@@ -2289,32 +2325,36 @@ export default function ScheduleExams() {
       }
 
       await response.json();
-      setShowSuccessModal(true); // Show the success modal instead of alert
+      showNotification("success", "Exam saved successfully");
       clearForm();
     } catch (error: unknown) {
       console.error("Error saving exam:", error);
-      const errorMessages: string[] = [];
       if (error instanceof Error) {
         if (error.message.includes("Failed to fetch")) {
-          errorMessages.push(
+          showNotification(
+            "error",
             "Failed to connect to the backend. Please ensure the server is running at http://localhost:5000."
           );
         } else {
           try {
             const errorData = JSON.parse(error.message);
             if (errorData.errors && Array.isArray(errorData.errors)) {
-              errorMessages.push(...errorData.errors);
+              errorData.errors.forEach((err: string) =>
+                showNotification("error", err)
+              );
             } else {
-              errorMessages.push(errorData.message || "Failed to save exam");
+              showNotification(
+                "error",
+                errorData.message || "Failed to save exam"
+              );
             }
           } catch {
-            errorMessages.push(error.message || "Failed to save exam");
+            showNotification("error", error.message || "Failed to save exam");
           }
         }
       } else {
-        errorMessages.push(String(error) || "An unknown error occurred");
+        showNotification("error", String(error) || "An unknown error occurred");
       }
-      setFormErrors(errorMessages);
     } finally {
       setIsSubmitting(false);
     }
@@ -2324,6 +2364,29 @@ export default function ScheduleExams() {
     <SidebarProvider>
       <AdminSidebar />
       <SidebarInset className="bg-main">
+        {/* Notifications */}
+        <div className="fixed top-4 right-4 z-50 space-y-2">
+          {notifications.map((notification) => (
+            <div
+              key={notification.id}
+              className={`p-4 rounded-md shadow-lg flex items-center justify-between ${
+                notification.type === "success"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              <span>{notification.message}</span>
+              <button
+                onClick={() => removeNotification(notification.id)}
+                className="ml-4"
+                aria-label="Close notification"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          ))}
+        </div>
+
         <header className="flex h-16 items-center justify-between bg-main px-6 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
@@ -2338,16 +2401,6 @@ export default function ScheduleExams() {
 
         <main className="p-8">
           <div className="bg-white rounded-xl shadow-sm p-8">
-            {formErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
-                <h3 className="font-semibold">Errors:</h3>
-                <ul className="list-disc pl-5">
-                  {formErrors.map((error, index) => (
-                    <li key={index}>{error}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="w-96 max-w-full">
                 <Select
@@ -3104,28 +3157,6 @@ export default function ScheduleExams() {
                 </Button>
               </div>
             </form>
-
-            {/* Success Modal */}
-            {showSuccessModal && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white rounded-lg p-6 w-96 max-w-full shadow-lg">
-                  <h3 className="text-lg font-semibold text-[#1a3a54] mb-4">
-                    Success
-                  </h3>
-                  <p className="text-gray-700 mb-6">
-                    Exam saved successfully!
-                  </p>
-                  <div className="flex justify-end">
-                    <Button
-                      onClick={() => setShowSuccessModal(false)}
-                      className="bg-[#4894c4] hover:bg-[#3a7da9] text-white rounded-md px-4"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </main>
       </SidebarInset>
