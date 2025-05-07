@@ -223,7 +223,7 @@ export default function VideosPage() {
                               e.currentTarget.src = "/placeholder.svg";
                             }}
                           />
-                          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
+                          <div className="absolute inset-0 flex items-center justify-center bg-gray bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
                             <div className="w-16 h-16 rounded-full bg-white bg-opacity-80 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
                               <Play className="h-8 w-8 text-[#1a3a54] ml-1" />
                             </div>
