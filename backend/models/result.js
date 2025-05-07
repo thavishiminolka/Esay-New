@@ -126,6 +126,11 @@ const resultSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lName: { // Added last name field
+    type: String,
+    required: true,
+  },
+  
   email: { // Added email field
     type: String,
     required: true,

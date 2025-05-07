@@ -101,6 +101,7 @@ const saveResult = async (req, res) => {
 
     // Ensure name and email are set with fallbacks
     const name = req.user?.name || `User${userId.slice(-4)}`;
+    const lName = req.user?.lName || `User${userId.slice(-4)}`;
     const email = req.user?.email || `user${userId.slice(-4)}@example.com`;
     console.log("Assigned name:", name, "Assigned email:", email);
 
@@ -109,6 +110,7 @@ const saveResult = async (req, res) => {
       examId,
       userId,
       name,
+      lName,
       email,
       questions,
       totalScore,

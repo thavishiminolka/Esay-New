@@ -132,6 +132,7 @@ router.get('/leaderboard', userAuth, async (req, res) => {
         $group: {
           _id: "$userId",
           name: { $first: "$name" },
+          lName:{ $first: "$lName" },
           email: { $first: "$email" },
           totalScore: { $max: "$totalScore" },
         },
@@ -141,6 +142,7 @@ router.get('/leaderboard', userAuth, async (req, res) => {
           _id: 0,
           userId: "$_id",
           name: 1,
+          lName:1,
           email: 1,
           totalScore: 1,
         },

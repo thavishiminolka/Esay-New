@@ -11,15 +11,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Dashboard() {
-  const user = {
-    passedExams: 12,
-    availableExams: 8,
-    totalExams: 20,
-  };
-
   const [userData, setUserData] = useState({
     name: "",
+    lName: "",
     userId: "",
+    email: "",
+    phone: ""
   });
 
   useEffect(() => {
@@ -30,7 +27,10 @@ export default function Dashboard() {
         });
         setUserData({
           name: response.data.name,
+          lName: response.data.lName,
           userId: response.data.userId,
+          email: response.data.email,
+          phone: response.data.phone
         });
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -61,7 +61,7 @@ export default function Dashboard() {
               <div className="flex w-full flex-col items-center justify-center p-6 md:w-1/3">
                 <div className="h-36 w-36 overflow-hidden rounded-full border-4 border-custom-blue1 bg-white">
                   <img
-                    src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     alt="Profile"
                     className="h-full w-full object-cover"
                   />
@@ -69,53 +69,21 @@ export default function Dashboard() {
               </div>
               <div className="flex w-full flex-col justify-center gap-2 p-6 md:w-2/3">
                 <h2 className="text-2xl font-bold ubuntu">
-                  Hello {userData.name || "User"}
+                  Hello, {`${userData.name?.charAt(0).toUpperCase() + userData.name?.slice(1).toLowerCase() || "User"} ${userData.lName?.charAt(0).toUpperCase() + userData.lName?.slice(1).toLowerCase() || ""}`}
                 </h2>
+
                 <p className="text-lg ubuntu">
-                Student ID: {userData.userId?.toUpperCase().slice(0, 7) || "N/A"}
+                  Student ID: {userData.userId?.toUpperCase().slice(0, 7) || "N/A"}
+                </p>
+                <p className="text-lg ubuntu">
+                  Email: {userData.email || "N/A"}
+                </p>
+                <p className="text-lg ubuntu">
+                  Contact No: {userData.phone || "N/A"}
                 </p>
               </div>
             </CardContent>
           </Card>
-
-          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <Card className="border-2 border-custom-blue2 bg-white shadow-[#6a6a6a] py-6">
-              <CardContent className="flex items-center justify-between p-6">
-                <div>
-                  <h3 className="text-4xl font-semibold text-custom-blue2 ubuntu">
-                    Passed Exams
-                  </h3>
-                </div>
-                <span className="text-5xl font-semibold text-custom-blue2 ubuntu">
-                  {user.passedExams}
-                </span>
-              </CardContent>
-            </Card>
-            <Card className="border-2 border-custom-blue2 bg-white shadow-[#6a6a6a] py-6">
-              <CardContent className="flex items-center justify-between p-6">
-                <div>
-                  <h3 className="text-4xl font-semibold text-custom-blue2 ubuntu">
-                    Available Exams
-                  </h3>
-                </div>
-                <span className="text-5xl font-semibold text-custom-blue2 ubuntu">
-                  {user.availableExams.toString().padStart(2, "0")}
-                </span>
-              </CardContent>
-            </Card>
-            <Card className="border-2 border-custom-blue2 bg-white shadow-[#6a6a6a] py-6">
-              <CardContent className="flex items-center justify-between p-6">
-                <div>
-                  <h3 className="text-4xl font-semibold text-custom-blue2 ubuntu">
-                    Total Exams
-                  </h3>
-                </div>
-                <span className="text-5xl font-semibold text-custom-blue2 ubuntu">
-                  {user.totalExams}
-                </span>
-              </CardContent>
-            </Card>
-          </div>
 
           <div className="flex justify-center">
             <Link to="/exams">
