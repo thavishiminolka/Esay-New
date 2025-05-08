@@ -45,7 +45,7 @@ export default function ViewPricePlans() {
       setTimeout(() => removeNotification(id), 5000);
     }
   };
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Remove notification
   const removeNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
@@ -55,7 +55,7 @@ export default function ViewPricePlans() {
   useEffect(() => {
     const fetchPricePlans = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/price-plans");
+        const response = await fetch(`${apiUrl}/api/price-plans`);
         if (!response.ok) {
           throw new Error(
             `Failed to fetch price plans: ${response.statusText}`
@@ -98,7 +98,7 @@ export default function ViewPricePlans() {
       async () => {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/price-plans/${planId}`,
+            `${apiUrl}/api/price-plans/${planId}`,
             {
               method: "DELETE",
               headers: {
