@@ -233,13 +233,13 @@ export default function ViewPricePlans() {
   }, []);
 
   // Handle edit button click
-  const handleEdit = (plan: PricePlan) => {
-    if (!plan.id) {
-      alert("Invalid price plan ID");
-      return;
-    }
-    navigate("/addPricePlans", { state: { plan } });
-  };
+  // const handleEdit = (plan: PricePlan) => {
+  //   if (!plan.id) {
+  //     alert("Invalid price plan ID");
+  //     return;
+  //   }
+  //   navigate("/addPricePlans", { state: { plan } });
+  // };
 
   // Handle delete button click
   const handleDelete = async (planId: string) => {
@@ -337,13 +337,6 @@ export default function ViewPricePlans() {
                     </ul>
                   </div>
                   <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleEdit(plan)}
-                      className="bg-[#4894c4] hover:bg-[#3a7da9] text-white rounded-md flex-1"
-                    >
-                      <Edit className="h-4 w-4 mr-2" />
-                      Edit
-                    </Button>
                     <Button
                       onClick={() => handleDelete(plan.id)}
                       className="bg-red-600 hover:bg-red-700 text-white rounded-md flex-1"
