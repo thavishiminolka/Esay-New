@@ -88,7 +88,7 @@ function LoginPage() {
           <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-gradient-to-b from-pink-200/80 to-orange-500/30 backdrop-blur-sm">
             <div className="flex justify-center mb-8">
               <img
-                src="/images/logoBlue.png"
+                src="/logo1new.png"
                 alt="Company Logo"
                 className="h-16 w-auto"
               />

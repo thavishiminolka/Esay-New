@@ -143,8 +143,8 @@ export function AppSidebar({
 
   return (
     <Sidebar className={cn("bg-custom-blue1 text-white", className)}>
-      <SidebarHeader className="flex items-center justify-center py-6">
-        <img src="logo.png" className="w-auto h-16 " />
+      <SidebarHeader className="flex items-center justify-center py-5">
+        <img src="logo2new.png" className="w-auto h-18 " />
       </SidebarHeader>
       <hr className="my-4" />
       <SidebarContent>

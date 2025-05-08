@@ -180,7 +180,7 @@ const AdvertisementSection: React.FC = () => {
   return (
     <section className="py-8 sm:py-12 lg:py-16 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 lg:mb-14 jaini text-custom-blue2">
+        <h2 className="text-4xl sm:text-6xl lg:text-6xl font-bold text-center mb-8 sm:mb-10 lg:mb-14 jaini text-custom-blue2">
           Advertisements
         </h2>
 

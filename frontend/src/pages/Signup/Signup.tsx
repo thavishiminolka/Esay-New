@@ -360,7 +360,7 @@ function SignupPage(): React.ReactElement {
           >
             <div className="flex justify-center mb-8">
               <img
-                src="/images/logoBlue.png"
+                src="/logo1new.png"
                 alt="Company Logo"
                 className="h-16 w-auto"
               />
