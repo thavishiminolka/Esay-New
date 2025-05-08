@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // import type React from "react"
 // import { useEffect, useState } from "react"
 // import { useParams, useNavigate, Link } from "react-router-dom"
@@ -551,6 +552,8 @@
 // button save
 
 
+=======
+>>>>>>> Stashed changes
 // import type React from "react";
 // import { useEffect, useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
@@ -581,6 +584,10 @@
 //     const saved = localStorage.getItem(`exam-${examId}-isFinished`);
 //     return saved === "true";
 //   });
+<<<<<<< Updated upstream
+=======
+//   const [hasSaved, setHasSaved] = useState(false); // Added to prevent multiple saves
+>>>>>>> Stashed changes
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState<string | null>(null);
 //   const [readingTimeSeconds, setReadingTimeSeconds] = useState<number>(0);
@@ -722,6 +729,111 @@
 //     }
 //   }, [examPhase, examId, exam, currentQuestionIndex]);
 
+<<<<<<< Updated upstream
+=======
+//   // Automatic save logic when exam is finished
+//   useEffect(() => {
+//     if (isFinished && examId && exam && !hasSaved) {
+//       const saveResultToDatabase = async () => {
+//         const questions = exam.questions;
+//         if (!questions || questions.length === 0) {
+//           console.log("No questions available to save.");
+//           return;
+//         }
+
+//         let score = 0;
+//         const marksPerQuestion = 5;
+
+//         questions.forEach((question) => {
+//           const userAnswer = userAnswers[question._id!];
+//           const correctAnswer = question.answers.find((ans) => ans.isCorrect);
+//           const correctAnswerValue = correctAnswer
+//             ? correctAnswer.text || correctAnswer.photo || ""
+//             : "";
+
+//           if (!userAnswer || !correctAnswerValue) {
+//             return;
+//           }
+
+//           const normalizedUserAnswer = userAnswer.trim().toLowerCase();
+//           const normalizedCorrectAnswer = correctAnswerValue
+//             .trim()
+//             .toLowerCase();
+
+//           if (normalizedUserAnswer === normalizedCorrectAnswer) {
+//             score += marksPerQuestion;
+//           }
+//         });
+
+//         const totalScore = score;
+//         const totalPossibleMarks = questions.length * 5;
+//         const percentageScore = Math.round(
+//           (totalScore / totalPossibleMarks) * 100
+//         );
+
+//         const resultData = {
+//           examId,
+//           questions: questions.map((q) => ({
+//             questionId: q._id!,
+//             userAnswer: userAnswers[q._id!] || "",
+//             correctAnswer:
+//               q.answers.find((ans) => ans.isCorrect)?.text ||
+//               q.answers.find((ans) => ans.isCorrect)?.photo ||
+//               "",
+//             isCorrect:
+//               userAnswers[q._id!] && q.answers.find((ans) => ans.isCorrect)
+//                 ? userAnswers[q._id!].trim().toLowerCase() ===
+//                   (
+//                     q.answers.find((ans) => ans.isCorrect)?.text ||
+//                     q.answers.find((ans) => ans.isCorrect)?.photo ||
+//                     ""
+//                   )
+//                     .trim()
+//                     .toLowerCase()
+//                 : false,
+//           })),
+//           totalScore,
+//           totalPossibleMarks,
+//           percentageScore,
+//           timestamp: new Date().toISOString(),
+//         };
+
+//         console.log("Sending result data:", resultData);
+
+//         try {
+//           const response = await fetch("http://localhost:5000/api/results", {
+//             method: "POST",
+//             headers: {
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(resultData),
+//             credentials: "include",
+//           });
+
+//           if (!response.ok) {
+//             const errorData = await response.json();
+//             throw new Error(errorData.error || "Failed to save result");
+//           }
+
+//           const data = await response.json();
+//           console.log("Result saved successfully:", data);
+//           // alert(`Result saved successfully! Attempt ${data.result.attempt}`);
+//           setHasSaved(true); // Mark as saved to prevent re-running
+//         } catch (error: unknown) {
+//           const errorMessage =
+//             error instanceof Error
+//               ? error.message
+//               : "Failed to save result. Please try again.";
+//           console.error("Error saving result:", error);
+//           // alert(errorMessage);
+//         }
+//       };
+
+//       saveResultToDatabase();
+//     }
+//   }, [isFinished, examId, exam]); // Dependencies limited to ensure single run
+
+>>>>>>> Stashed changes
 //   const handleAnswer = (questionId: string, answer: string) => {
 //     console.log(`Answer selected for question ${questionId}:`, answer);
 //     setUserAnswers((prev) => {
@@ -887,6 +999,28 @@
 //       .padStart(2, "0")}`;
 //   };
 
+<<<<<<< Updated upstream
+=======
+//   // Prompt user to save on page unload if not finished
+//   useEffect(() => {
+//     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+//       if (
+//         !isFinished &&
+//         examId &&
+//         exam &&
+//         Object.keys(userAnswers).length > 0
+//       ) {
+//         e.preventDefault();
+//         e.returnValue =
+//           "Your exam results will not be saved if you leave. Are you sure?";
+//       }
+//     };
+
+//     window.addEventListener("beforeunload", handleBeforeUnload);
+//     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+//   }, [isFinished, examId, exam, userAnswers]);
+
+>>>>>>> Stashed changes
 //   if (loading) return <LoadingSpinner />;
 //   if (error) return <div className="text-center text-red-500">{error}</div>;
 //   if (!exam || exam.questions.length === 0)
@@ -912,8 +1046,17 @@
 //   if (isFinished) {
 //     return (
 //       <div className="container mx-auto p-4">
+<<<<<<< Updated upstream
 //         <ExamResult questions={exam.questions} userAnswers={userAnswers} examId={examId} />
 //         <Link to={"/exams"}>
+=======
+//         <ExamResult
+//           questions={exam.questions}
+//           userAnswers={userAnswers}
+//           examId={examId}
+//         />
+//         <Link to="/exams">
+>>>>>>> Stashed changes
 //           <button className="mt-4 bg-custom-blue2 text-white px-4 py-2 rounded hover:bg-[#2d4373]">
 //             Back to Exams
 //           </button>
@@ -1100,8 +1243,12 @@
 //                             : hasAnswer
 //                             ? "bg-green-100 text-green-700 hover:bg-green-200"
 //                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+<<<<<<< Updated upstream
 //                         }`
 //                         }
+=======
+//                         }`}
+>>>>>>> Stashed changes
 //                         onClick={() => handleQuestionSelect(questionIndex)}
 //                         disabled={examPhase !== "reading"}
 //                       >
@@ -1234,7 +1381,18 @@
 
 
 
+<<<<<<< Updated upstream
 //  automatocally save
+=======
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
 
 
 
@@ -1268,7 +1426,7 @@ const ExamPage: React.FC = () => {
     const saved = localStorage.getItem(`exam-${examId}-isFinished`);
     return saved === "true";
   });
-  const [hasSaved, setHasSaved] = useState(false); // Added to prevent multiple saves
+  const [hasSaved, setHasSaved] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [readingTimeSeconds, setReadingTimeSeconds] = useState<number>(0);
@@ -1279,6 +1437,7 @@ const ExamPage: React.FC = () => {
     const saved = localStorage.getItem(`exam-${examId}-phase`);
     return saved === "listening" ? "listening" : "reading";
   });
+  const [startTime, setStartTime] = useState<Date | null>(null); // Added for time tracking
 
   // Dialog state
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -1291,7 +1450,7 @@ const ExamPage: React.FC = () => {
     showCancel: false,
   });
 
-  // Helper function to show dialog instead of alert
+  // Helper function to show dialog
   const showDialog = (
     title: string,
     description: string,
@@ -1310,6 +1469,13 @@ const ExamPage: React.FC = () => {
     });
     setDialogOpen(true);
   };
+
+  // Set startTime when exam loads
+  useEffect(() => {
+    if (!startTime && !isFinished) {
+      setStartTime(new Date());
+    }
+  }, [startTime, isFinished]);
 
   useEffect(() => {
     const loadExam = async () => {
@@ -1397,7 +1563,6 @@ const ExamPage: React.FC = () => {
           currentQuestionIndex < firstListeningIndex
         ) {
           setCurrentQuestionIndex(firstListeningIndex);
-          // Reset play counts for all listening questions when entering listening phase
           exam.questions
             .filter((q) => q.type === "listening")
             .forEach((question) => {
@@ -1410,13 +1575,14 @@ const ExamPage: React.FC = () => {
     }
   }, [examPhase, examId, exam, currentQuestionIndex]);
 
-  // Automatic save logic when exam is finished
+  // Save result when exam is finished
   useEffect(() => {
     if (isFinished && examId && exam && !hasSaved) {
       const saveResultToDatabase = async () => {
         const questions = exam.questions;
         if (!questions || questions.length === 0) {
           console.log("No questions available to save.");
+          showDialog("Error", "No questions available to save.");
           return;
         }
 
@@ -1444,6 +1610,13 @@ const ExamPage: React.FC = () => {
         const totalPossibleMarks = questions.length * 5;
         const percentageScore = Math.round((totalScore / totalPossibleMarks) * 100);
 
+        // Validate required fields
+        if (!startTime) {
+          console.error("Start time is missing");
+          showDialog("Error", "Start time is missing. Please restart the exam.");
+          return;
+        }
+
         const resultData = {
           examId,
           questions: questions.map((q) => ({
@@ -1458,6 +1631,7 @@ const ExamPage: React.FC = () => {
           totalPossibleMarks,
           percentageScore,
           timestamp: new Date().toISOString(),
+          startTime: startTime.toISOString(), // Added startTime
         };
 
         console.log("Sending result data:", resultData);
@@ -1479,18 +1653,31 @@ const ExamPage: React.FC = () => {
 
           const data = await response.json();
           console.log("Result saved successfully:", data);
+<<<<<<< Updated upstream
           alert(`Result saved successfully! Attempt ${data.result.attempt}`);
           setHasSaved(true); // Mark as saved to prevent re-running
+=======
+          showDialog(
+            "Success",
+            `Result saved successfully! Attempt ${data.result.attempt}`,
+            () => {}
+          );
+          setHasSaved(true);
+>>>>>>> Stashed changes
         } catch (error: unknown) {
           const errorMessage = error instanceof Error ? error.message : "Failed to save result. Please try again.";
           console.error("Error saving result:", error);
+<<<<<<< Updated upstream
           alert(errorMessage);
+=======
+          showDialog("Error", errorMessage);
+>>>>>>> Stashed changes
         }
       };
 
       saveResultToDatabase();
     }
-  }, [isFinished, examId, exam]); // Dependencies limited to ensure single run
+  }, [isFinished, examId, exam, hasSaved, startTime]);
 
   const handleAnswer = (questionId: string, answer: string) => {
     console.log(`Answer selected for question ${questionId}:`, answer);
@@ -1519,7 +1706,6 @@ const ExamPage: React.FC = () => {
           `exam-${examId}-listening-startTime`,
           Date.now().toString()
         );
-        // Reset play counts for listening questions
         exam.questions
           .filter((q) => q.type === "listening")
           .forEach((question) => {
@@ -1713,7 +1899,6 @@ const ExamPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 flex flex-col lg:flex-row gap-6 bg-gray-100 min-h-screen">
-      {/* Dialog component */}
       <ExamDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
