@@ -39,10 +39,12 @@ export default function Exams() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL
+
   useEffect(() => {
     const fetchExams = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/exams", {
+        const response = await fetch(`${apiUrl}/api/exams`, {
           credentials: "include", // Send JWT token via cookies
         });
         if (!response.ok) {
@@ -114,7 +116,7 @@ export default function Exams() {
                   <img
                     src={
                       exam.photo
-                        ? `http://localhost:5000${exam.photo}`
+                        ? `${apiUrl}${exam.photo}`
                         : defaultExamImage
                     }
                     alt={exam.topic}

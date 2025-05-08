@@ -17,6 +17,7 @@ const ExamResult: React.FC<ExamResultProps> = ({ questions, userAnswers }) => {
   const [isPrinting, setIsPrinting] = useState(false)
   const printRef = useRef<HTMLDivElement>(null)
 
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (isPrinting) {
       const allIds = questions.map((q) => q._id!)
@@ -337,7 +338,7 @@ const ExamResult: React.FC<ExamResultProps> = ({ questions, userAnswers }) => {
                       {question.questionPhoto && (
                         <div className="mb-3">
                           <img
-                            src={`http://localhost:5000${question.questionPhoto}`}
+                            src={`${apiUrl}${question.questionPhoto}`}
                             alt={`Question ${question.questionNumber} image`}
                             className="max-w-full h-auto rounded-md border border-gray-200"
                             onError={(e) => console.error("Error loading question image:", e)}
@@ -386,7 +387,7 @@ const ExamResult: React.FC<ExamResultProps> = ({ questions, userAnswers }) => {
                                 {answer.photo ? (
                                   <div className="flex items-center gap-2">
                                     <img
-                                      src={`http://localhost:5000${answer.photo}`}
+                                      src={`${apiUrl}${answer.photo}`}
                                       alt={`Answer ${index + 1}`}
                                       className="h-16 w-16 object-cover rounded-md border border-gray-200"
                                       onError={(e) => console.error("Error loading answer image:", e)}

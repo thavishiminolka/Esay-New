@@ -9,6 +9,8 @@ export default function LeaderboardPage() {
   const [papers, setPapers] = useState<{ id: string; topic: string }[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   // Utility function to format time (seconds to MM:SS)
   const formatTime = (seconds: number): string => {
     if (!Number.isFinite(seconds) || seconds < 0) return "N/A";
@@ -21,7 +23,7 @@ export default function LeaderboardPage() {
     const fetchPapersAndLeaderboard = async () => {
       try {
         setError(null);
-        const papersResponse = await fetch("http://localhost:5000/api/exams", {
+        const papersResponse = await fetch(`${apiUrl}/api/exams`, {
           credentials: "include",
         });
 
@@ -59,7 +61,7 @@ export default function LeaderboardPage() {
         try {
           setError(null);
           console.log("Fetching leaderboard for examId:", selectedPaper);
-          const response = await fetch(`http://localhost:5000/api/results/leaderboard?examId=${selectedPaper}`, {
+          const response = await fetch(`${apiUrl}/api/results/leaderboard?examId=${selectedPaper}`, {
             credentials: "include",
           });
 

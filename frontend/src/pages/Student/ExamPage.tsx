@@ -257,7 +257,8 @@ const ExamPage: React.FC = () => {
         console.log("Sending result data:", resultData);
 
         try {
-          const response = await fetch("http://localhost:5000/api/results", {
+          const apiUrl = import.meta.env.VITE_API_URL
+          const response = await fetch(`${apiUrl}/api/results`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

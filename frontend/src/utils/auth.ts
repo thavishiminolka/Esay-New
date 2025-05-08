@@ -41,7 +41,7 @@ export const sendVerificationOTP = async (): Promise<{ success: boolean; message
 };
 
 export const verifyEmail = async (otp: string, userId: string) => {
-  const response = await fetch('http://localhost:5000/api/auth/Verify-account', {
+  const response = await fetch(`${apiUrl}/api/auth/Verify-account`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

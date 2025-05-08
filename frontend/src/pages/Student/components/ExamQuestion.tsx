@@ -33,6 +33,7 @@ const ExamQuestion: React.FC<ExamQuestionProps> = ({
   const [answeringTime, setAnsweringTime] = useState(false)
   const [audioError, setAudioError] = useState<string | null>(null)
 
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Debug re-renders and prop changes
   useEffect(() => {
     console.log("ExamQuestion re-rendered:", {
@@ -71,7 +72,7 @@ const ExamQuestion: React.FC<ExamQuestionProps> = ({
   useEffect(() => {
     const audio = audioRef.current
     if (audio && examPhase === "listening" && question.type === "listening" && !audio.src) {
-      audio.src = `http://localhost:5000${question.audio}`
+      audio.src = `${apiUrl}${question.audio}`
       audio.load()
       console.log("Audio preloaded for question:", question._id || questionIndex)
     }
@@ -218,7 +219,7 @@ const ExamQuestion: React.FC<ExamQuestionProps> = ({
         <div className="mb-4">
           {question.questionPhoto && (
             <img
-              src={`http://localhost:5000${question.questionPhoto}`}
+              src={`${apiUrl}${question.questionPhoto}`}
               alt={`Question ${question.questionNumber || questionIndex + 1} image`}
               className="max-w-full h-auto rounded-lg border border-gray-200 mb-2"
               loading="lazy"
@@ -262,7 +263,7 @@ const ExamQuestion: React.FC<ExamQuestionProps> = ({
                   <div className="flex items-center gap-2">
                     <span className="text-gray-700 font-medium">{index + 1}.</span>
                     <img
-                      src={`http://localhost:5000${answer.photo}`}
+                      src={`${apiUrl}${answer.photo}`}
                       alt={`Answer ${index + 1} image`}
                       className="h-30 w-30 object-cover rounded-md border border-gray-200"
                       loading="lazy"

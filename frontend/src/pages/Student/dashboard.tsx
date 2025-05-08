@@ -19,10 +19,12 @@ export default function Dashboard() {
     phone: ""
   });
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/user/data", {
+        const response = await axios.get(`${apiUrl}/api/user/data`, {
           withCredentials: true,
         });
         setUserData({
