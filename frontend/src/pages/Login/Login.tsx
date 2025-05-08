@@ -143,12 +143,12 @@ function LoginPage() {
                       Remember me
                     </label>
                   </div>
-                  <Link
+                  {/* <Link
                     to="/reset-password"
                     className="text-sm text-gray-600 hover:underline"
                   >
                     Forgot Password
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
               <Button
