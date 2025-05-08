@@ -31,13 +31,6 @@
 
 
 
-
-
-
-
-
-
-
 console.log("userAuth.js: Loading module");
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel'); // Ensure this path is correct
