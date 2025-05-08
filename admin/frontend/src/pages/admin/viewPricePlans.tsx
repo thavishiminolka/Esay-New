@@ -177,7 +177,7 @@ import {
   SidebarTrigger,
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
-import { ChevronLeft, Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 
 interface PricePlan {
   id: string;

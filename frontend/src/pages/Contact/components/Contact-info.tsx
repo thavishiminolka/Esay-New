@@ -5,7 +5,7 @@ const ContactForm = () => {
     <div className="flex-grow bg-[url('/images/bg3.png')] bg-cover bg-center bg-no-repeat relative min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 jaini">
             Contact Us
           </h1>
           <p className="text-lg sm:text-xl text-white mb-8 sm:mb-12">
