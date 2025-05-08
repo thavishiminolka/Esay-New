@@ -25,13 +25,13 @@ export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Fetch videos on mount
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/api/videos");
+        const response = await axios.get(`${apiUrl}/api/videos`);
         // Filter out videos with missing or invalid youtubeUrl
         const validVideos = response.data.filter(
           (video: Video) =>
@@ -81,7 +81,7 @@ export default function VideosPage() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/videos", {
+      const response = await axios.post(`${apiUrl}/api/videos`, {
         title,
         youtubeUrl,
       });
@@ -97,7 +97,7 @@ export default function VideosPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/api/videos/${id}`);
+      await axios.delete(`${apiUrl}/api/videos/${id}`);
       setVideos(videos.filter((video) => video.id !== id));
     } catch (err) {
       console.error("Error deleting video:", err);

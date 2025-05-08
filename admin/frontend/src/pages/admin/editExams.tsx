@@ -97,7 +97,7 @@ export default function EditExams() {
   const audioInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (!exam || !exam.id) {
       setFormErrors(["No exam data provided. Please select an exam to edit."]);
@@ -834,7 +834,7 @@ export default function EditExams() {
       });
 
       const response = await fetch(
-        `http://localhost:5000/api/exams/${exam.id}`,
+        `${apiUrl}/api/exams/${exam.id}`,
         {
           method: "PUT",
           body: formData,
@@ -860,7 +860,7 @@ export default function EditExams() {
       if (error instanceof Error) {
         if (error.message.includes("Failed to fetch")) {
           errorMessages.push(
-            "Failed to connect to the backend. Please ensure the server is running at http://localhost:5000."
+            "Failed to connect to the backend"
           );
         } else {
           try {

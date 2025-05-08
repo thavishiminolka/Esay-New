@@ -30,12 +30,12 @@ export default function StudentDetails() {
   const [student, setStudent] = useState<User | null>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchStudent = async () => {
       try {
         const response = await axios.get<User>(
-          `http://localhost:5000/api/users/${id}`
+          `${apiUrl}/api/users/${id}`
         );
         setStudent(response.data);
         setIsActive(response.data.isActive);
@@ -50,7 +50,7 @@ export default function StudentDetails() {
   const toggleStatus = async () => {
     try {
       const response = await axios.put<User>(
-        `http://localhost:5000/api/users/${id}/status`
+        `${apiUrl}/api/users/${id}/status`
       );
       setIsActive(response.data.isActive);
     } catch (error: any) {

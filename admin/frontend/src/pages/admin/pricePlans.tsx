@@ -47,13 +47,13 @@ export default function AddPricePlan() {
   const [exams, setExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Fetch available exams
   useEffect(() => {
     const fetchExams = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/exams/admin/exams?",
+          `${apiUrl}/api/exams/admin/exams?`,
           {
             credentials: "include",
             headers: {
@@ -130,8 +130,8 @@ export default function AddPricePlan() {
     e.preventDefault();
     try {
       const url = planToEdit
-        ? `http://localhost:5000/api/price-plans/${planToEdit.id}`
-        : "http://localhost:5000/api/price-plans";
+        ? `${apiUrl}/api/price-plans/${planToEdit.id}`
+        : `${apiUrl}/api/price-plans`;
       const method = planToEdit ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -157,7 +157,7 @@ export default function AddPricePlan() {
         );
       }
 
-      navigate("/admin/viewPricePlans");
+      navigate("/viewPricePlans");
     } catch (err) {
       setError(
         err instanceof Error

@@ -29,14 +29,14 @@ export default function AdvertisementPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     fetchAdvertisements();
   }, []);
 
   const fetchAdvertisements = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/advertisements");
+      const response = await fetch(`${apiUrl}/api/advertisements`);
       if (!response.ok) throw new Error("Failed to fetch advertisements");
       const data = await response.json();
       setAdvertisements(data);
@@ -85,7 +85,7 @@ export default function AdvertisementPage() {
       formData.append("title", title);
       formData.append("image", imageFile);
 
-      const response = await fetch("http://localhost:5000/api/advertisements", {
+      const response = await fetch(`${apiUrl}/api/advertisements`, {
         method: "POST",
         body: formData,
       });
@@ -113,7 +113,7 @@ export default function AdvertisementPage() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/advertisements/${id}`,
+        `${apiUrl}/api/advertisements/${id}`,
         {
           method: "DELETE",
         }

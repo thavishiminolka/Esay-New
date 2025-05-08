@@ -715,8 +715,8 @@ export default function ScheduleExams() {
           }
         });
       });
-
-      const response = await fetch("http://localhost:5000/api/exams", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/api/exams`, {
         method: "POST",
         body: formData,
       });
@@ -740,7 +740,7 @@ export default function ScheduleExams() {
       if (error instanceof Error) {
         if (error.message.includes("Failed to fetch")) {
           errorMessages.push(
-            "Failed to connect to the backend. Please ensure the server is running at http://localhost:5000."
+            "Failed to connect to the backend"
           );
         } else {
           try {

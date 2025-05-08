@@ -38,7 +38,7 @@ export default function ViewExams() {
   const navigate = useNavigate();
   const [exams, setExams] = useState<Exam[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   // useEffect(() => {
   //   const fetchExams = async () => {
   //     try {
@@ -65,7 +65,7 @@ export default function ViewExams() {
     const fetchExams = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/exams/admin/exams"
+          `${apiUrl}/api/exams/admin/exams`
         );
         if (!response.ok) {
           const errorData = await response.json();
@@ -110,7 +110,7 @@ export default function ViewExams() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/exams/${examId}`,
+        `${apiUrl}/api/exams/${examId}`,
         {
           method: "DELETE",
           headers: {
@@ -168,7 +168,7 @@ export default function ViewExams() {
                 <img
                   src={
                     exam.photo
-                      ? `http://localhost:5000${exam.photo}`
+                      ? `${apiUrl}${exam.photo}`
                       : defaultExamImage
                   }
                   alt={exam.topic}
