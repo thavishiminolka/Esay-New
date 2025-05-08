@@ -3,7 +3,6 @@ import FeaturesSection from "./components/Feature-section";
 import FeedbackSection from "./components/Feedback-section";
 import Footer from "../../components/Footer";
 import HeroSection from "./components/Hero-section";
-import LanguageOptions from "./components/Language-options";
 
 import Navbar from "../../components/Navbar";
 
@@ -24,8 +23,6 @@ function Home() {
           }}
         >
           <HeroSection />
-          <br />
-          <LanguageOptions />
           <br />
           <FeaturesSection />
 
