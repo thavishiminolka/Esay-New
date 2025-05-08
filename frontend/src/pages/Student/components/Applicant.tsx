@@ -9,11 +9,12 @@ const Applicant = () => {
     testRoom: 'Test Room',
     applicationNo: '0012367',
   });
+  const apiUrl = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/user/data', { withCredentials: true });
+        const response = await axios.get(`${apiUrl}/api/user/data`, { withCredentials: true });
         setApplicantData({
           ...applicantData,
           name: response.data.name,

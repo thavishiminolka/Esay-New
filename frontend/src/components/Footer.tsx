@@ -12,7 +12,7 @@ function Footer() {
         {/* Logo */}
         <div className="mb-6 md:mb-0 flex justify-center">
           <img
-            src="/logo.png"
+            src="/logo2new.png"
             alt="Company Logo"
             className="h-16 w-auto max-w-xs"
           />

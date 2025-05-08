@@ -31,7 +31,7 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const apiUrl = import.meta.env.VITE_API_URL;
       const response = await axios.post<LoginResponse>(
         `${apiUrl}/api/auth/login`,
         {
@@ -88,7 +88,7 @@ function LoginPage() {
           <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-gradient-to-b from-pink-200/80 to-orange-500/30 backdrop-blur-sm">
             <div className="flex justify-center mb-8">
               <img
-                src="/images/logoBlue.png"
+                src="/logo1new.png"
                 alt="Company Logo"
                 className="h-16 w-auto"
               />
@@ -143,12 +143,12 @@ function LoginPage() {
                       Remember me
                     </label>
                   </div>
-                  <Link
+                  {/* <Link
                     to="/reset-password"
                     className="text-sm text-gray-600 hover:underline"
                   >
                     Forgot Password
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
               <Button

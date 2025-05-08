@@ -22,12 +22,13 @@ export default function VideosPage() {
   const [error, setError] = useState<string | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL
   // Fetch videos from backend
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/api/videos");
+        const response = await axios.get(`${apiUrl}/api/videos`);
         // Filter out videos with invalid youtubeUrl
         const validVideos = response.data.filter(
           (video: Video) =>

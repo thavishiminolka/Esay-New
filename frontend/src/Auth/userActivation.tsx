@@ -7,13 +7,14 @@ const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const apiUrl = import.meta.env.VITE_API_URL
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        
         setLoading(true);
         setError(null);
-        const response = await axios.get<User[]>('http://localhost:5000/api/user', {
+        const response = await axios.get<User[]>(`${apiUrl}/api/user`, {
           withCredentials: true // Send JWT cookie
         });
         setUsers(response.data);
@@ -35,7 +36,7 @@ const UserList: React.FC = () => {
 
     try {
       setUsers(updatedUsers);
-      const response = await axios.patch(`http://localhost:5000/api/user/${userId}/activate`, {
+      const response = await axios.patch(`${apiUrl}/api/user/${userId}/activate`, {
         isActive: newStatus
       }, {
         withCredentials: true

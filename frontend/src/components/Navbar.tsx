@@ -115,7 +115,7 @@ function Navbar() {
     <>
       <nav className="text-white p-4 flex items-center justify-between bg-custom-blue1 relative z-50">
         <div className="flex items-center gap-8">
-          <img src="/logo.png" alt="Company Logo" className="h-10 w-auto" />
+          <img src="/logo2new.png" alt="Company Logo" className="h-12 w-auto" />
           <div className="hidden md:flex items-center space-x-15 absolute left-1/2 transform -translate-x-1/2">
             <Link to="/" className="hover:text-slate-300 ubuntu text-middle" onClick={closeAllDropdowns}>
               Home
