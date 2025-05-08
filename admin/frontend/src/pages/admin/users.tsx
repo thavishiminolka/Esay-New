@@ -174,10 +174,6 @@ const UserListPage: React.FC = () => {
               <SidebarTrigger className="text-[#1a3a54]" />
               <h1 className="text-3xl font-bold text-[#1a3a54]">User List</h1>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#1a3a54]">Username</span>
-              <div className="h-10 w-10 rounded-full bg-gray-300" />
-            </div>
           </header>
           <main className="p-8">
             <div className="text-center text-gray-600">Loading...</div>
@@ -196,10 +192,6 @@ const UserListPage: React.FC = () => {
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-[#1a3a54]" />
               <h1 className="text-3xl font-bold text-[#1a3a54]">User List</h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#1a3a54]">Username</span>
-              <div className="h-10 w-10 rounded-full bg-gray-300" />
             </div>
           </header>
           <main className="p-8">
@@ -221,10 +213,6 @@ const UserListPage: React.FC = () => {
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
             <h1 className="text-3xl font-bold text-[#1a3a54]">User List</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[#1a3a54]">Username</span>
-            <div className="h-10 w-10 rounded-Colored rounded-full bg-gray-300" />
           </div>
         </header>
         <main className="p-8">
