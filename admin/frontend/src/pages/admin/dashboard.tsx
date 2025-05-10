@@ -8,7 +8,7 @@ import {
 } from "../../components/ui/sidebar";
 
 import { StatCard } from "./components/Stat-cards";
-import { ChevronLeft, DollarSign, FileText, Users } from "lucide-react";
+import { DollarSign, FileText, Users } from "lucide-react";
 
 export default function AdminDashboard() {
   return (
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
         <header className="flex h-16 items-center justify-between bg-main px-6 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-[#1a3a54]" />
-         
+
             <h1 className="text-3xl font-bold text-[#1a3a54]">Dashboard</h1>
           </div>
           {/* <div className="flex items-center gap-2">
