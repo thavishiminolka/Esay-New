@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Play } from "lucide-react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { AppSidebar } from "./components/sidebar";

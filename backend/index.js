@@ -11,7 +11,6 @@ const userRoutes = require("./routes/userRoutes.js");
 const adminRoutes = require("./routes/admin");
 require("dotenv").config();
 const authRouter = require("./routes/authRoutes");
-price - plans;
 const paymentRoutes = require("./routes/payment");
 require("./cron");
 const connectDB = require("./config/mongodb");
