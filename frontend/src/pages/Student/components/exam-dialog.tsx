@@ -78,7 +78,7 @@ export function ExamDialog({
     }
   }
 
-  const { icon, headerClass, buttonClass } = getIconAndColors()
+  const { icon, buttonClass } = getIconAndColors()
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -11,12 +11,12 @@ interface UserData {
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [examsDropdownOpen, setExamsDropdownOpen] = useState(false);
-  const [mobileExamsDropdownOpen, setMobileExamsDropdownOpen] = useState(false);
+  const [, setExamsDropdownOpen] = useState(false);
+  const [, setMobileExamsDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [canAccessExam, setCanAccessExam] = useState(false); // New state for exam access
+  const [, setCanAccessExam] = useState(false); // New state for exam access
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
@@ -94,8 +94,6 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggleExamsDropdown = () => setExamsDropdownOpen(!examsDropdownOpen);
-  const toggleMobileExamsDropdown = () => setMobileExamsDropdownOpen(!mobileExamsDropdownOpen);
   const toggleUserDropdown = () => setUserDropdownOpen(!userDropdownOpen);
   const closeAllDropdowns = () => {
     setExamsDropdownOpen(false);

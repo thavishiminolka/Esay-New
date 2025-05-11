@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useExamContext } from "../../../contexts/ExamContext";
 import defaultExamImage from "../../assets/default-exam.jpg"; // Adjust path as needed
 import { Button } from "../../components/ui/button";
