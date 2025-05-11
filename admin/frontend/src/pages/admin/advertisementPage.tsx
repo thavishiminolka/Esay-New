@@ -8,7 +8,7 @@ import {
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ChevronLeft, Plus, Paperclip, X, Trash2 } from "lucide-react";
+import { Plus, Paperclip, X, Trash2 } from "lucide-react";
 
 type Notification = {
   id: string;
