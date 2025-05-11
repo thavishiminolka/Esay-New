@@ -8,7 +8,7 @@ import {
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ChevronLeft, Plus, Upload, X } from "lucide-react";
+import { Plus, Upload, X } from "lucide-react";
 import { Checkbox } from "../../components/ui/checkbox";
 import {
   Select,

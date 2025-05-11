@@ -9,7 +9,7 @@ import {
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ChevronLeft, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import axios from "axios";
 import ErrorBoundary from "./components/ErrorBoundary";
 

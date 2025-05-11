@@ -9,7 +9,7 @@ import {
   SidebarTrigger,
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
-import { ChevronLeft, Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 
 // Import default image
 import defaultExamImage from "../../assets/default-exam.jpg"; // Adjust path as needed
