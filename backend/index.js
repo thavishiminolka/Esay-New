@@ -117,7 +117,7 @@ app.get("/api/advertisements", async (req, res) => {
     const transformedAds = advertisements.map((ad) => ({
       ...ad._doc,
       id: ad._id.toString(),
-      imageUrl: `http://localhost:${port}${ad.imageUrl}`,
+      imageUrl: `https://epstopiksir.com/uploads${ad.imageUrl}`,
     }));
     res.json(transformedAds);
   } catch (error) {
