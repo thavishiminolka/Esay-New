@@ -154,7 +154,7 @@ const Form: React.FC<FormProps> = ({ type }) => {
           {type === "login" ? (
             <>
               Don't have an account?{" "}
-              <a href="/signup" className="text-blue-500 hover:underline">
+              <a href="admin/signup" className="text-blue-500 hover:underline">
                 Signup
               </a>
             </>
