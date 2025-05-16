@@ -52,7 +52,7 @@ const Form: React.FC<FormProps> = ({ type }) => {
       await axios.post(`${apiUrl}${endpoint}`, payload);
 
       if (type === "login") {
-        window.location.href = "/admindashboard";
+        window.location.href = "/dashboard";
       } else {
         showNotification(
           "success",
@@ -154,7 +154,7 @@ const Form: React.FC<FormProps> = ({ type }) => {
           {type === "login" ? (
             <>
               Don't have an account?{" "}
-              <a href="admin/signup" className="text-blue-500 hover:underline">
+              <a href="/signup" className="text-blue-500 hover:underline">
                 Signup
               </a>
             </>

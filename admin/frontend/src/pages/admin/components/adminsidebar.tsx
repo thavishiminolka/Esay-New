@@ -301,7 +301,7 @@ export function AdminSidebar({
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/adminDashboard") {
+    if (location.pathname === "/dashboard") {
       setActiveTab("Dashboard");
     } else if (location.pathname === "/userslist") {
       setActiveTab("UsersList");
@@ -331,7 +331,7 @@ export function AdminSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
-                to="/adminDashboard"
+                to="/dashboard"
                 className="flex items-center gap-3 p-2 rounded-md hover:bg-[#375286]"
                 onClick={() => setActiveTab("Dashboard")}
               >
