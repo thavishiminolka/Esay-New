@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(
   "/uploads",
-  express.static(path.join(__dirname, "public/uploads"), {
+  express.static(path.join(__dirname, "/uploads"), {
     setHeaders: (res, path, stat) => {
       const requestOrigin = res.req.headers.origin;
       if (allowedOrigins.includes(requestOrigin)) {
@@ -260,7 +260,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, "public/uploads");
+const uploadsDir = path.join(__dirname, "/uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
   console.log(`Created uploads directory at ${uploadsDir}`);
