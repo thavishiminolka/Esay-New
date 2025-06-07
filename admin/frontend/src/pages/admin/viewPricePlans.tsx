@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AdminSidebar } from "./components/adminsidebar";
 import {
   SidebarInset,
@@ -6,7 +7,7 @@ import {
   SidebarTrigger,
 } from "../../components/ui/sidebar";
 import { Button } from "../../components/ui/button";
-import { Trash2, X } from "lucide-react";
+import { Trash2, X, Edit2 } from "lucide-react";
 
 interface PricePlan {
   id: string;
@@ -18,6 +19,7 @@ interface PricePlan {
 }
 
 export default function ViewPricePlans() {
+  const navigate = useNavigate();
   const [pricePlans, setPricePlans] = useState<PricePlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState<
@@ -29,6 +31,8 @@ export default function ViewPricePlans() {
       onCancel?: () => void;
     }[]
   >([]);
+
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Show notification
   const showNotification = (
@@ -45,7 +49,7 @@ export default function ViewPricePlans() {
       setTimeout(() => removeNotification(id), 5000);
     }
   };
-  const apiUrl = import.meta.env.VITE_API_URL;
+
   // Remove notification
   const removeNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
@@ -55,7 +59,12 @@ export default function ViewPricePlans() {
   useEffect(() => {
     const fetchPricePlans = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/price-plans`);
+        const response = await fetch(`${apiUrl}/api/price-plans`, {
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error(
             `Failed to fetch price plans: ${response.statusText}`
@@ -104,6 +113,7 @@ export default function ViewPricePlans() {
               headers: {
                 "Content-Type": "application/json",
               },
+              credentials: "include",
             }
           );
 
@@ -127,6 +137,22 @@ export default function ViewPricePlans() {
       },
       () => removeNotification(planId)
     );
+  };
+
+  // Handle edit button click
+  const handleEdit = (plan: PricePlan) => {
+    navigate("/addPricePlans", {
+      state: {
+        plan: {
+          id: plan.id,
+          name: plan.name,
+          price: plan.price,
+          duration: plan.duration,
+          exams: plan.exams.map((exam) => exam.id),
+          description: plan.description || "",
+        },
+      },
+    });
   };
 
   return (
@@ -228,6 +254,13 @@ export default function ViewPricePlans() {
                     </ul>
                   </div>
                   <div className="flex gap-2">
+                    <Button
+                      onClick={() => handleEdit(plan)}
+                      className= "bg-[#4894c4] hover:bg-[#3a7da9] text-white rounded-md flex-1"
+                    >
+                      <Edit2 className="h-4 w-4 mr-2" />
+                      Edit
+                    </Button>
                     <Button
                       onClick={() => handleDelete(plan.id)}
                       className="bg-red-600 hover:bg-red-700 text-white rounded-md flex-1"
